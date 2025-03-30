@@ -10,7 +10,7 @@ uniform sampler2D tex0;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 float distanceToObj = length(lightPos - fragPos);
-float constant = 0.75;
+float constant = 0.85;
 float linear = 0.0025;
 float quadratic = 0.0015;
 float attenuation = 1.0 / (constant + linear * distanceToObj + quadratic * (distanceToObj * distanceToObj));

@@ -201,6 +201,10 @@ void Object::Render(unsigned int shaderProgram){
     glDrawArrays(GL_TRIANGLES, 0, fullVertexData.size()/8);
 }
 
+glm::vec3 Object::GetPosition(){
+    return objectTranslationVector;
+}
+
 std::vector<GLfloat> Object::GetFullVertexData(){
     return fullVertexData;
 }

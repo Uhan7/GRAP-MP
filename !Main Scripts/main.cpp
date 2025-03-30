@@ -108,7 +108,7 @@ int main()
         playerCarPointer->Update(shaderProgram);
 
         // Lighting Stuff
-        Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.65f, glm::vec3(1, 1, 1), 1.2f, 2.0f);
+        Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.4f, glm::vec3(1, 1, 1), 1.2f, 2.0f);
         light.Render(shaderProgram, activeCameraPointer);
 
         // Rendering Object
