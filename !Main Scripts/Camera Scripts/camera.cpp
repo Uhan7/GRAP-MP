@@ -1,0 +1,51 @@
+#include "camera.h"
+
+Camera::Camera(glm::vec3 positionVector, glm::vec3 directionVector):
+    cameraPosition(positionVector),
+    cameraTranslationMatrix(glm::translate(glm::mat4(1.0f), -cameraPosition)){}
+
+Camera::~Camera(){}
+
+void Camera::MovePosition(char inputDirection){
+    glm::vec3 front = glm::normalize(direction);
+    glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0, 1.0f, 0)));
+
+    switch (inputDirection){
+        case 'L': cameraPosition -= right * cameraMoveSpeed; break;
+        case 'R': cameraPosition += right * cameraMoveSpeed; break;
+        case 'D': cameraPosition -= glm::vec3(0, 1.0f, 0) * cameraMoveSpeed; break;
+        case 'U': cameraPosition += glm::vec3(0, 1.0f, 0) * cameraMoveSpeed; break;
+        case 'B': cameraPosition -= front * cameraMoveSpeed; break;
+        case 'F': cameraPosition += front * cameraMoveSpeed; break;
+        default:
+            std::cout << inputDirection << " is not a valid Camera Translation inputDirection." << std::endl;
+            break;
+    }
+    cameraTranslationMatrix = glm::translate(glm::mat4(1.0f), -cameraPosition);
+}
+
+void Camera::Rotate(char inputDirection){
+    switch (inputDirection){
+        case 'L': yaw -= cameraOrientationSpeed; break;
+        case 'R': yaw += cameraOrientationSpeed; break;
+        case 'D': pitch = glm::clamp(pitch - cameraOrientationSpeed, -89.9f, 89.9f); break;
+        case 'U': pitch = glm::clamp(pitch + cameraOrientationSpeed, -89.9f, 89.9f); break;
+        default: std::cout << inputDirection << " is not a valid Camera Rotation inputDirection." << std::endl; break;
+    }
+}
+
+glm::vec3 Camera::GetCameraPosition(){
+    return cameraPosition;
+}
+
+glm::mat4 Camera::GetCameraTranslationMatrix(){
+    return cameraTranslationMatrix;
+}
+
+glm::mat4 Camera::GetCameraViewMatrix(){
+    return viewMatrix;
+}
+
+glm::mat4 Camera::GetCameraProjectionMatrix(){
+    return projectionMatrix;
+}

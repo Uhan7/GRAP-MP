@@ -1,0 +1,10 @@
+if using ortho
+glm::mat4 projectionMatrix = glm::ortho(
+    -windowWidth / 2.0f,
+    windowWidth / 2.0f,
+    -windowHeight / 2.0f,
+    windowHeight / 2.0f,
+    0.1f,
+    100.f
+);
+
