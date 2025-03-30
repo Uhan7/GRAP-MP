@@ -54,7 +54,7 @@ Object::Object(const std::string& objPath, const std::string& texturePath, float
     glGenTextures(1, &texture);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, tex_bytes);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_bytes);
 
     glGenerateMipmap(GL_TEXTURE_2D);
     stbi_image_free(tex_bytes);
@@ -109,6 +109,10 @@ Object::Object(const std::string& objPath, const std::string& texturePath, float
 }
 
 Object::~Object(){}
+
+void Object::SetForward(glm::vec3 newForward){
+    forwardDirection = newForward;
+}
 
 void Object::SetPosition(glm::vec3 newPositionVector){
     objectTranslationVector = newPositionVector;
@@ -172,7 +176,17 @@ void Object::Rotate(char polarity, char axis){
     }
 }
 
+void Object::MoveForward(){
+    objectTranslationVector += forward * objectTranslateSpeed;
+}
+
+void Object::MoveForward(float moveSpeed){
+    objectTranslationVector += forward * moveSpeed;
+}
+
 void Object::Update(unsigned int shaderProgram){
+    forward = objectRotationQuaternion * forwardDirection;
+
     ObjectTransformationMatrix = glm::translate(glm::mat4(1.0f), objectTranslationVector);
     ObjectTransformationMatrix = glm::scale(ObjectTransformationMatrix, objectScaleVector);
     ObjectTransformationMatrix *= glm::mat4_cast(objectRotationQuaternion);

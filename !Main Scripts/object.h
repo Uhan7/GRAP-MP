@@ -35,9 +35,14 @@ private:
     glm::quat qy = glm::angleAxis(objectRotateSpeed, glm::vec3(0, 1, 0));
     glm::quat qz = glm::angleAxis(objectRotateSpeed, glm::vec3(0, 0, 1));
 
+    glm::vec3 forwardDirection = glm::vec3(-1.0, 0, 0);
+    glm::vec3 forward;
+
 public:
     Object(const std::string& objectPath, const std::string& texturePath, float objectectScale);
     ~Object();
+
+    void SetForward(glm::vec3 newForward);
 
     void SetPosition(glm::vec3 newPositionVector);
     void SetScale(glm::vec3 newScaleVector);
@@ -48,11 +53,16 @@ public:
     void Scale(bool enlarge);
     void Rotate(char polarity, char axis);
 
+    void MoveForward();
+    void MoveForward(float moveSpeed);
 
     void Update(unsigned int shaderProgram);
     void Render(unsigned int shaderProgram);
 
-    // Getters    
+    // Getters
+    glm::vec3 GetPosition();
+    glm::vec3 GetScale();
+    glm::vec3 GetRotation();
     std::vector<GLfloat> GetFullVertexData();
     glm::vec3 GetObjectTranslationVector();
 

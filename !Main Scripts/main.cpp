@@ -29,31 +29,40 @@ OrthographicCamera* orthographicCameraPointer = nullptr;
 Camera* activeCameraPointer = nullptr;
 Object* playerCarPointer = nullptr;
 
-void KeyHeldProcesses(){ 
-    if (D_Held) playerCarPointer->Translate('R');
-    if (A_Held) playerCarPointer->Translate('L');
-    if (W_Held) playerCarPointer->Translate('F');
-    if (S_Held) playerCarPointer->Translate('B');
-    if (LEFT_SHIFT_Held) playerCarPointer->Translate('D');
-    if (SPACE_Held) playerCarPointer->Translate('U');
-    if (MINUS_Held) playerCarPointer->Scale(true);
-    if (EQUAL_Held) playerCarPointer->Scale(false);
-    if (UP_Held) playerCarPointer->Rotate('+', 'X');
-    if (DOWN_Held) playerCarPointer->Rotate('-', 'X');
-    if (LEFT_Held) playerCarPointer->Rotate('+', 'Y');
-    if (RIGHT_Held) playerCarPointer->Rotate('-', 'Y');
-    if (COMMA_Held) playerCarPointer->Rotate('+', 'Z');
-    if (PERIOD_Held) playerCarPointer->Rotate('-', 'Z');
-    if (J_Held) activeCameraPointer->MovePosition('L');
-    if (L_Held) activeCameraPointer->MovePosition('R');
-    if (K_Held) activeCameraPointer->MovePosition('D');
-    if (I_Held) activeCameraPointer->MovePosition('U');
-    if (U_Held) activeCameraPointer->MovePosition('B');
-    if (O_Held) activeCameraPointer->MovePosition('F');
-    if (F_Held) activeCameraPointer->Rotate('L');
-    if (H_Held) activeCameraPointer->Rotate('R');
-    if (G_Held) activeCameraPointer->Rotate('D');
-    if (T_Held) activeCameraPointer->Rotate('U');
+// void KeyHeldProcesses(){ 
+//     if (D_Held) playerCarPointer->Translate('R');
+//     if (A_Held) playerCarPointer->Translate('L');
+//     if (W_Held) playerCarPointer->Translate('F');
+//     if (S_Held) playerCarPointer->Translate('B');
+//     if (LEFT_SHIFT_Held) playerCarPointer->Translate('D');
+//     if (SPACE_Held) playerCarPointer->Translate('U');
+//     if (MINUS_Held) playerCarPointer->Scale(true);
+//     if (EQUAL_Held) playerCarPointer->Scale(false);
+//     if (UP_Held) playerCarPointer->Rotate('+', 'X');
+//     if (DOWN_Held) playerCarPointer->Rotate('-', 'X');
+//     if (LEFT_Held) playerCarPointer->Rotate('+', 'Y');
+//     if (RIGHT_Held) playerCarPointer->Rotate('-', 'Y');
+//     if (COMMA_Held) playerCarPointer->Rotate('+', 'Z');
+//     if (PERIOD_Held) playerCarPointer->Rotate('-', 'Z');
+//     if (J_Held) activeCameraPointer->MovePosition('L');
+//     if (L_Held) activeCameraPointer->MovePosition('R');
+//     if (K_Held) activeCameraPointer->MovePosition('D');
+//     if (I_Held) activeCameraPointer->MovePosition('U');
+//     if (U_Held) activeCameraPointer->MovePosition('B');
+//     if (O_Held) activeCameraPointer->MovePosition('F');
+//     if (F_Held) activeCameraPointer->Rotate('L');
+//     if (H_Held) activeCameraPointer->Rotate('R');
+//     if (G_Held) activeCameraPointer->Rotate('D');
+//     if (T_Held) activeCameraPointer->Rotate('U');
+//     if (TAB_Held) activeCameraPointer = orthographicCameraPointer;
+//         else activeCameraPointer = perspectiveCameraPointer;
+// }
+
+void KeyHeldProcesses(){
+    if (W_Held) playerCarPointer->MoveForward(3);
+    if (S_Held) playerCarPointer->MoveForward(-3);
+    if (A_Held) playerCarPointer->Rotate('-', 'Y');
+    if (D_Held) playerCarPointer->Rotate('+', 'Y');
     if (TAB_Held) activeCameraPointer = orthographicCameraPointer;
         else activeCameraPointer = perspectiveCameraPointer;
 }
@@ -66,11 +75,13 @@ int main()
     SetUpWindow(window);
 
     // Make our objects
-    PerspectiveCamera perspectiveCamera(glm::vec3(0, 40, 80), glm::vec3(-45, 0, 0));
-    OrthographicCamera orthographicCamera(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0));
-    Object playerCar("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 0.2f);
+    PerspectiveCamera perspectiveCamera(glm::vec3(0, 75, 60), 0, -30);
+    OrthographicCamera orthographicCamera(glm::vec3(0, 75, 65), 0, -90);
+    Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0.2f);
+    // Object playerCar("Models and Textures/beetle.obj", "Models and Textures/beetle_texture.png", 20.f);
+    playerCar.SetForward(glm::vec3(1, 0, 0));
     playerCar.SetPosition(glm::vec3(0, 0, 0));
-    playerCar.SetRotation(glm::vec3(0, -90, 0));
+    playerCar.SetRotation(glm::vec3(0, 90, 0));
 
     // Set our Pointers
     perspectiveCameraPointer = &perspectiveCamera;
@@ -101,7 +112,6 @@ int main()
         light.Render(shaderProgram, activeCameraPointer);
 
         // Rendering Object
-        // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         playerCarPointer->Render(shaderProgram);
 
         // Check Events and Swap Buffers

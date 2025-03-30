@@ -1,7 +1,7 @@
 #include "orthographic_camera.h"
 
-OrthographicCamera::OrthographicCamera(glm::vec3 positionVector, glm::vec3 directionVector):
-    Camera(positionVector, directionVector){}
+OrthographicCamera::OrthographicCamera(glm::vec3 positionVector, float startingYaw, float startingPitch):
+    Camera(positionVector, startingYaw-90, startingPitch){}
 
 void OrthographicCamera::Update(unsigned int shaderProgram, int screenWidth, int screenHeight){
     direction = glm::normalize(glm::vec3(

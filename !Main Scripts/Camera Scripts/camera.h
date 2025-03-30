@@ -12,13 +12,13 @@ protected:
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
     
-    float yaw = -90.0f;
-    float pitch = 0.0f;
+    float yaw;
+    float pitch;
     float cameraMoveSpeed = 0.5f;
     float cameraOrientationSpeed = 1.0f;
 
 public:
-    Camera(glm::vec3 positionVector, glm::vec3 directionVector);
+    Camera(glm::vec3 positionVector, float startingYaw, float startingPitch);
     virtual ~Camera();
 
     void MovePosition(char inputDirection);

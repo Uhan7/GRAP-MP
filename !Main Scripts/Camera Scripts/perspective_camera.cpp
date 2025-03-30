@@ -1,7 +1,7 @@
 #include "perspective_camera.h"
 
-PerspectiveCamera::PerspectiveCamera(glm::vec3 positionVector, glm::vec3 directionVector):
-    Camera(positionVector, directionVector){}
+PerspectiveCamera::PerspectiveCamera(glm::vec3 positionVector, float startingYaw, float startingPitch):
+    Camera(positionVector, startingYaw, startingPitch){}
 
 void PerspectiveCamera::Update(unsigned int shaderProgram, int screenWidth, int screenHeight){
     direction = glm::normalize(glm::vec3(

@@ -1,8 +1,10 @@
 #include "camera.h"
 
-Camera::Camera(glm::vec3 positionVector, glm::vec3 directionVector):
+Camera::Camera(glm::vec3 positionVector, float startingYaw, float startingPitch):
     cameraPosition(positionVector),
-    cameraTranslationMatrix(glm::translate(glm::mat4(1.0f), -cameraPosition)){}
+    cameraTranslationMatrix(glm::translate(glm::mat4(1.0f), -cameraPosition)),
+    yaw(startingYaw - 90),
+    pitch(startingPitch){}
 
 Camera::~Camera(){}
 

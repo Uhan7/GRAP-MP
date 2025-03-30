@@ -3,6 +3,6 @@
 
 class OrthographicCamera : public Camera{
 public:
-    OrthographicCamera(glm::vec3 positionVector, glm::vec3 directionVector);
+    OrthographicCamera(glm::vec3 positionVector, float startingYaw, float startingPitch);
     void Update(unsigned int shaderProgram, int screenWidth, int screenHeight) override;
 };
