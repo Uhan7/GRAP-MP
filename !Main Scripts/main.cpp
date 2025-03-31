@@ -101,10 +101,10 @@ int main()
 
     std::cout<<"yabadaba\ttwo"<<std::endl;
 
-    // Object slowCar("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 1, .2f);
-    // slowCar.SetForward(glm::vec3(1, 0, 0));
-    // slowCar.SetPosition(glm::vec3(-30, 0, 0));
-    // slowCar.SetRotation(glm::vec3(0, 90, 0));
+    Object slowCar("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .2f);
+    slowCar.SetForward(glm::vec3(1, 0, 0));
+    slowCar.SetPosition(glm::vec3(-30, 0, 0));
+    slowCar.SetRotation(glm::vec3(0, 90, 0));
 
     std::cout<<"threep!"<<std::endl;
 
@@ -113,7 +113,7 @@ int main()
     orthographicCameraPointer = &orthographicCamera;
     playerCarPointer = &playerCar;
     fastCarPointer = &fastCar;
-    // slowCarPointer = &slowCar;
+    slowCarPointer = &slowCar;
 
     // Shaderz
     unsigned int shaderProgram = CreateShaderProgram("Shaders/sample.vert", "Shaders/sample.frag");
@@ -137,15 +137,13 @@ int main()
         // Update Camera and Cars
         activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
         playerCarPointer->Update(shaderProgram, "transform0", 0);
-        playerCarPointer->Render(shaderProgram, 0, 0);
         fastCarPointer->Update(shaderProgram, "transform1", 1);
-        fastCarPointer->Render(shaderProgram, 1, 1);
-        // slowCarPointer->Update(shaderProgram);
+        slowCarPointer->Update(shaderProgram, "transform2", 2);
 
         // Rendering Object
-        // playerCarPointer->Render(shaderProgram, 0);
-        // fastCarPointer->Render(shaderProgram, 1);
-        // slowCarPointer->Render(shaderProgram, 2);
+        playerCarPointer->Render(shaderProgram, 0, 0);
+        fastCarPointer->Render(shaderProgram, 1, 1);
+        slowCarPointer->Render(shaderProgram, 2, 2);
 
         // Debug Messages
         // PrintVector(playerCarPointer->GetPosition());
