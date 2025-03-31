@@ -58,8 +58,8 @@ public:
     void MoveForward();
     void MoveForward(float moveSpeed);
 
-    void Update(unsigned int shaderProgram);
-    void Render(unsigned int shaderProgram, int textureNumber);
+    void Update(unsigned int shaderProgram, const GLchar* transformName, int transformNumber);
+    void Render(unsigned int shaderProgram, int textureNumber, int transformNumber);
 
     // Getters
     glm::vec3 GetPosition();

@@ -79,34 +79,13 @@ Object::Object(const std::string& objPath, const std::string& texturePath, int t
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GL_FLOAT) * fullVertexData.size(), fullVertexData.data(), GL_STATIC_DRAW);
     
-    glVertexAttribPointer(
-        0, 
-        3, 
-        GL_FLOAT, 
-        GL_FALSE, 
-        8 * sizeof(float),
-        (void*)0
-    );
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 
     GLintptr normalPtr = 3 * sizeof(float);
-    glVertexAttribPointer(
-        1,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        8 * sizeof(float),
-        (void*)normalPtr
-    );
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)normalPtr);
 
     GLintptr uvPtr = 6 * sizeof(float);
-    glVertexAttribPointer(
-        2,
-        2,
-        GL_FLOAT,
-        GL_FALSE,
-        8 * sizeof(GLfloat),
-        (void*)uvPtr
-    );
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)uvPtr);
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -193,20 +172,26 @@ void Object::MoveForward(float moveSpeed){
     objectTranslationVector += forward * moveSpeed;
 }
 
-void Object::Update(unsigned int shaderProgram){
+void Object::Update(unsigned int shaderProgram, const GLchar* transformName, int transformNumber){
     forward = objectRotationQuaternion * forwardDirection;
 
     ObjectTransformationMatrix = glm::translate(glm::mat4(1.0f), objectTranslationVector);
     ObjectTransformationMatrix = glm::scale(ObjectTransformationMatrix, objectScaleVector);
     ObjectTransformationMatrix *= glm::mat4_cast(objectRotationQuaternion);
 
-    unsigned int uniformTransformLocation = glGetUniformLocation(shaderProgram, "transform");
+    unsigned int uniformTransformLocation = glGetUniformLocation(shaderProgram, transformName);
     glUniformMatrix4fv(uniformTransformLocation, 1, GL_FALSE, glm::value_ptr(ObjectTransformationMatrix));
+
+    unsigned int uniformTransformNum = glGetUniformLocation(shaderProgram, "transformNumber");
+    glUniform1i(uniformTransformNum, transformNumber);
 }
 
-void Object::Render(unsigned int shaderProgram, int textureNumber){
+void Object::Render(unsigned int shaderProgram, int textureNumber, int transformNumber){
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
+
+    GLuint uniformTransformLocation = glGetUniformLocation(shaderProgram, "transformNumber");
+    glUniform1i(uniformTransformLocation, transformNumber);
 
     GLuint selectTex = glGetUniformLocation(shaderProgram, "textureNumber");
     if (textureNumber == 0){

@@ -64,9 +64,13 @@ Object* slowCarPointer = nullptr;
 
 void KeyHeldProcesses(){
     if (W_Held) playerCarPointer->MoveForward(3);
-    if (S_Held) fastCarPointer->MoveForward(-3);
+    if (S_Held) playerCarPointer->MoveForward(-3);
     if (A_Held) playerCarPointer->Rotate('-', 'Y');
     if (D_Held) playerCarPointer->Rotate('+', 'Y');
+    // if (UP_Held) fastCarPointer->MoveForward(3);
+    // if (DOWN_Held) fastCarPointer->MoveForward(-3);
+    // if (LEFT_Held) fastCarPointer->Rotate('-', 'Y');
+    // if (RIGHT_Held) fastCarPointer->Rotate('+', 'Y');
     if (TAB_Held) activeCameraPointer = orthographicCameraPointer;
         else activeCameraPointer = perspectiveCameraPointer;
 }
@@ -126,19 +130,21 @@ int main()
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Update Camera and Cars
-        activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
-        playerCarPointer->Update(shaderProgram);
-        fastCarPointer->Update(shaderProgram);
-        // slowCarPointer->Update(shaderProgram);
-
         // Lighting Stuff
         Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
         light.Render(shaderProgram, activeCameraPointer);
 
+        // Update Camera and Cars
+        activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
+        playerCarPointer->Update(shaderProgram, "transform0", 0);
+        playerCarPointer->Render(shaderProgram, 0, 0);
+        fastCarPointer->Update(shaderProgram, "transform1", 1);
+        fastCarPointer->Render(shaderProgram, 1, 1);
+        // slowCarPointer->Update(shaderProgram);
+
         // Rendering Object
-        playerCarPointer->Render(shaderProgram, 0);
-        fastCarPointer->Render(shaderProgram, 1);
+        // playerCarPointer->Render(shaderProgram, 0);
+        // fastCarPointer->Render(shaderProgram, 1);
         // slowCarPointer->Render(shaderProgram, 2);
 
         // Debug Messages
