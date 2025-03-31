@@ -21,6 +21,10 @@ public:
     Camera(glm::vec3 positionVector, float startingYaw, float startingPitch);
     virtual ~Camera();
 
+    void SetPosition(glm::vec3 newPositionVector);
+    void SetScale(glm::vec3 newScaleVector);
+    void SetRotation(float newYaw, float newPitch);
+    
     void MovePosition(char inputDirection);
     void Rotate(char inputDirection);
     virtual void Update(unsigned int shaderProgram, int screenWidth, int screenHeight) = 0;

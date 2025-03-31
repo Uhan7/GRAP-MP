@@ -5,6 +5,11 @@ in vec3 fragPos;
 in vec2 texCoord;
 
 uniform sampler2D tex0;
+uniform sampler2D tex1;
+uniform sampler2D tex2;
+uniform sampler2D tex3;
+
+uniform int textureNumber;
 
 // Light
 uniform vec3 lightPos;
@@ -40,6 +45,12 @@ out vec4 FragColor;
 
 void main() {
     // FragColor = vec4(0.59, 0.29, 0.0, 1.0);
-    FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex0, texCoord);
+    switch(textureNumber){
+        case 0: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex0, texCoord); break;
+        case 1: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex1, texCoord); break;
+        case 2: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex2, texCoord); break;
+        case 3: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex3, texCoord); break;
+        default: break;
+    }
     //FragColor = texture(tex0, texCoord);
 }

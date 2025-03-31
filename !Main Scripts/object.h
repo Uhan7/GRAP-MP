@@ -39,7 +39,7 @@ private:
     glm::vec3 forward;
 
 public:
-    Object(const std::string& objectPath, const std::string& texturePath, float objectectScale);
+    Object(const std::string& objPath, const std::string& texturePath, int textureNumber, float objectScale);
     ~Object();
 
     void SetForward(glm::vec3 newForward);
@@ -50,14 +50,16 @@ public:
 
     void Translate(char inputDirection, float translateSpeed);
     void Translate(char inputDirection);
+
     void Scale(bool enlarge);
+
     void Rotate(char polarity, char axis);
 
     void MoveForward();
     void MoveForward(float moveSpeed);
 
     void Update(unsigned int shaderProgram);
-    void Render(unsigned int shaderProgram);
+    void Render(unsigned int shaderProgram, int textureNumber);
 
     // Getters
     glm::vec3 GetPosition();

@@ -8,6 +8,18 @@ Camera::Camera(glm::vec3 positionVector, float startingYaw, float startingPitch)
 
 Camera::~Camera(){}
 
+void Camera::SetPosition(glm::vec3 newPositionVector){
+    cameraPosition = newPositionVector;
+}
+
+void Camera::SetScale(glm::vec3 newScaleVector){
+
+}
+
+void Camera::SetRotation(float newYaw, float newPitch){
+
+}
+
 void Camera::MovePosition(char inputDirection){
     glm::vec3 front = glm::normalize(direction);
     glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0, 1.0f, 0)));

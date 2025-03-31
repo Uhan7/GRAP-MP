@@ -1,6 +1,6 @@
 #include "object.h"
 
-Object::Object(const std::string& objPath, const std::string& texturePath, float objectScale){
+Object::Object(const std::string& objPath, const std::string& texturePath, int textureNumber, float objectScale){
     // Load our OBJ
     std::string path = objPath;
     std::vector<tinyobj::shape_t> shapes;
@@ -52,8 +52,16 @@ Object::Object(const std::string& objPath, const std::string& texturePath, float
 
     GLuint texture;
     glGenTextures(1, &texture);
-    glActiveTexture(GL_TEXTURE0);
+
+    switch(textureNumber){
+        case 0: glActiveTexture(GL_TEXTURE0); break;
+        case 1: glActiveTexture(GL_TEXTURE1); break;
+        case 2: glActiveTexture(GL_TEXTURE2); break;
+        case 3: glActiveTexture(GL_TEXTURE3); break;
+    }
+
     glBindTexture(GL_TEXTURE_2D, texture);
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_bytes);
 
     glGenerateMipmap(GL_TEXTURE_2D);
@@ -195,9 +203,36 @@ void Object::Update(unsigned int shaderProgram){
     glUniformMatrix4fv(uniformTransformLocation, 1, GL_FALSE, glm::value_ptr(ObjectTransformationMatrix));
 }
 
-void Object::Render(unsigned int shaderProgram){
+void Object::Render(unsigned int shaderProgram, int textureNumber){
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
+
+    GLuint selectTex = glGetUniformLocation(shaderProgram, "textureNumber");
+    if (textureNumber == 0){
+        glActiveTexture(GL_TEXTURE0);
+        GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex0");
+        glUniform1i(tex0Address, 0);
+        glUniform1i(selectTex, 0);
+    }
+    else if (textureNumber == 1){
+        glActiveTexture(GL_TEXTURE1);
+        GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex1");
+        glUniform1i(tex0Address, 1);
+        glUniform1i(selectTex, 1);
+    }
+    else if (textureNumber == 2){
+        glActiveTexture(GL_TEXTURE2);
+        GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex2");
+        glUniform1i(tex0Address, 2);
+        glUniform1i(selectTex, 2);
+    }
+    else if (textureNumber == 3){
+        glActiveTexture(GL_TEXTURE3);
+        GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex3");
+        glUniform1i(tex0Address, 3);
+        glUniform1i(selectTex, 3);
+    }
+
     glDrawArrays(GL_TRIANGLES, 0, fullVertexData.size()/8);
 }
 
