@@ -63,8 +63,8 @@ Object* slowCarPointer = nullptr;
 // }
 
 void KeyHeldProcesses(){
-    if (W_Held) playerCarPointer->MoveForward(3);
-    if (S_Held) playerCarPointer->MoveForward(-3);
+    if (W_Held) playerCarPointer->MoveForward(2.75);
+    if (S_Held) playerCarPointer->MoveForward(2.75);
     if (A_Held) playerCarPointer->Rotate('-', 'Y');
     if (D_Held) playerCarPointer->Rotate('+', 'Y');
     // if (UP_Held) fastCarPointer->MoveForward(3);
@@ -87,23 +87,23 @@ int main()
     OrthographicCamera orthographicCamera(glm::vec3(0, 75, 65), 0, -90);
 
     // Then our cars
-    Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.2f);
+    Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
     playerCar.SetForward(glm::vec3(1, 0, 0));
     playerCar.SetPosition(glm::vec3(0, 0, 0));
     playerCar.SetRotation(glm::vec3(0, 90, 0));
 
     std::cout<<"yabadabadoo"<<std::endl;
 
-    Object fastCar("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .2f);
-    fastCar.SetForward(glm::vec3(-1, 0, 0));
-    fastCar.SetPosition(glm::vec3(30, 0, 0));
-    fastCar.SetRotation(glm::vec3(0, 180, 0));
+    Object fastCar("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
+    fastCar.SetForward(glm::vec3(1, 0, 0));
+    fastCar.SetPosition(glm::vec3(150, 0, 0));
+    fastCar.SetRotation(glm::vec3(0, 90, 0));
 
     std::cout<<"yabadaba\ttwo"<<std::endl;
 
-    Object slowCar("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .2f);
+    Object slowCar("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
     slowCar.SetForward(glm::vec3(1, 0, 0));
-    slowCar.SetPosition(glm::vec3(-30, 0, 0));
+    slowCar.SetPosition(glm::vec3(-150, 0, 0));
     slowCar.SetRotation(glm::vec3(0, 90, 0));
 
     std::cout<<"threep!"<<std::endl;
@@ -144,6 +144,10 @@ int main()
         playerCarPointer->Render(shaderProgram, 0, 0);
         fastCarPointer->Render(shaderProgram, 1, 1);
         slowCarPointer->Render(shaderProgram, 2, 2);
+
+        // Move Other Cars
+        fastCarPointer->MoveForward(3.5);
+        slowCarPointer->MoveForward(2.25);
 
         // Debug Messages
         // PrintVector(playerCarPointer->GetPosition());
