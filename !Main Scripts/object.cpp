@@ -1,6 +1,6 @@
 #include "object.h"
 
-Object::Object(const std::string& objPath, const std::string& texturePath, int textureNumber, float objectScale){
+Object::Object(const std::string& objPath, const std::string& texturePath, int textureNumber, int imageType, float objectScale){
     // Load our OBJ
     std::string path = objPath;
     std::vector<tinyobj::shape_t> shapes;
@@ -62,7 +62,8 @@ Object::Object(const std::string& objPath, const std::string& texturePath, int t
 
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_bytes);
+    if (imageType == 0) glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, tex_bytes);
+    else glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_bytes);
 
     glGenerateMipmap(GL_TEXTURE_2D);
     stbi_image_free(tex_bytes);

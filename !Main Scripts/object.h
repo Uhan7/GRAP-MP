@@ -39,7 +39,7 @@ private:
     glm::vec3 forward;
 
 public:
-    Object(const std::string& objPath, const std::string& texturePath, int textureNumber, float objectScale);
+    Object(const std::string& objPath, const std::string& texturePath, int textureNumber, int imageType, float objectScale);
     ~Object();
 
     void SetForward(glm::vec3 newForward);

@@ -83,31 +83,39 @@ int main()
     OrthographicCamera orthographicCamera(glm::vec3(0, 75, 65), 0, -90);
 
     // Then our cars
-    Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, 0.2f);
+    Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, 1, 0.2f);
     playerCar.SetForward(glm::vec3(1, 0, 0));
     playerCar.SetPosition(glm::vec3(0, 0, 0));
     playerCar.SetRotation(glm::vec3(0, 90, 0));
 
-    Object slowCar("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 1, .2f);
-    slowCar.SetForward(glm::vec3(1, 0, 0));
-    slowCar.SetPosition(glm::vec3(-30, 0, 0));
-    slowCar.SetRotation(glm::vec3(0, 90, 0));
+    std::cout<<"yabadabadoo"<<std::endl;
 
-    Object fastCar("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 2, .2f);
+    Object fastCar("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, 0, .2f);
     fastCar.SetForward(glm::vec3(-1, 0, 0));
     fastCar.SetPosition(glm::vec3(30, 0, 0));
     fastCar.SetRotation(glm::vec3(0, 180, 0));
+
+    std::cout<<"yabadaba\ttwo"<<std::endl;
+
+    // Object slowCar("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 1, .2f);
+    // slowCar.SetForward(glm::vec3(1, 0, 0));
+    // slowCar.SetPosition(glm::vec3(-30, 0, 0));
+    // slowCar.SetRotation(glm::vec3(0, 90, 0));
+
+    std::cout<<"threep!"<<std::endl;
 
     // Set our Pointers
     perspectiveCameraPointer = &perspectiveCamera;
     orthographicCameraPointer = &orthographicCamera;
     playerCarPointer = &playerCar;
     fastCarPointer = &fastCar;
-    slowCarPointer = &slowCar;
+    // slowCarPointer = &slowCar;
 
     // Shaderz
     unsigned int shaderProgram = CreateShaderProgram("Shaders/sample.vert", "Shaders/sample.frag");
     unsigned int skyboxShaderProgram = CreateShaderProgram("Shaders/skybox.vert", "Shaders/skybox.frag");
+
+fastCarPointer->Update(shaderProgram);
 
     // Render Loop every FRAME
     while(!glfwWindowShouldClose(window))
@@ -123,10 +131,8 @@ int main()
         // Update Camera and Cars
         activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
         playerCarPointer->Update(shaderProgram);
-        fastCarPointer->Update(shaderProgram);
-        slowCarPointer->Update(shaderProgram);
-
-        // activeCameraPointer->SetPosition(playerCarPointer->GetPosition());
+        // fastCarPointer->Update(shaderProgram);
+        // slowCarPointer->Update(shaderProgram);
 
         // Lighting Stuff
         Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
@@ -134,11 +140,11 @@ int main()
 
         // Rendering Object
         playerCarPointer->Render(shaderProgram, 0);
-        // fastCarPointer->Render(shaderProgram, 1);
+        fastCarPointer->Render(shaderProgram, 1);
         // slowCarPointer->Render(shaderProgram, 2);
 
         // Debug Messages
-        // PrintVector(playerCarPointer->GetPosition());
+        PrintVector(playerCarPointer->GetPosition());
 
         // Check Events and Swap Buffers
         glfwPollEvents();
