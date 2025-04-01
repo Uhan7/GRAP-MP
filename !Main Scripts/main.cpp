@@ -75,6 +75,31 @@ void KeyHeldProcesses(){
         else activeCameraPointer = perspectiveCameraPointer;
 }
 
+/// Mouse Processing with respect to the position of the mouse. 
+void MouseProcesses(GLFWwindow* window, bool ortographic_view, OrthographicCamera* Camera){
+
+    double Curr_Pos_x, Curr_Pos_y;
+    if (ortographic_view == true) { /// TRUE when in ortographic_view.
+
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) { /// TRUE when left click is held
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+            glfwGetCursorPos(window, &Curr_Pos_x, &Curr_Pos_y);
+            if (Camera->GetMouse_XPos() > Curr_Pos_x) { //TRUE when the Mouse is moved to the left
+                Camera->Rotate('L');
+            }
+            else if (Camera->GetMouse_XPos() < Curr_Pos_x) { // TRUE when the Mouse is moved to the right
+                Camera->Rotate('R');
+            }
+        }
+        else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE) { /// TRUE when left click is released
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+
+        Camera->UpdateMousePos(Curr_Pos_x);
+    }
+}
+
 int main()
 {
     // Set Up Stuff

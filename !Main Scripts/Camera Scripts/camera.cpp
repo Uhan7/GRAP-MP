@@ -63,3 +63,10 @@ glm::mat4 Camera::GetCameraViewMatrix(){
 glm::mat4 Camera::GetCameraProjectionMatrix(){
     return projectionMatrix;
 }
+
+
+float Camera::GetMouse_XPos(){return mouse_x_pos;}
+
+void Camera::UpdateMousePos(float x){
+    mouse_x_pos = x;
+}
