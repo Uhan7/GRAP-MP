@@ -64,7 +64,7 @@ Object* slowCarPointer = nullptr;
 
 void KeyHeldProcesses(){
     if (W_Held) playerCarPointer->MoveForward(2.75);
-    if (S_Held) playerCarPointer->MoveForward(2.75);
+    if (S_Held) playerCarPointer->MoveForward(-2.75);
     if (A_Held) playerCarPointer->Rotate('-', 'Y');
     if (D_Held) playerCarPointer->Rotate('+', 'Y');
     // if (UP_Held) fastCarPointer->MoveForward(3);
@@ -76,7 +76,7 @@ void KeyHeldProcesses(){
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
-void MouseProcesses(GLFWwindow* window, bool ortographic_view, OrthographicCamera* Camera){
+void MouseProcesses(GLFWwindow* window, bool ortographic_view, Camera* Camera){
 
     double Curr_Pos_x, Curr_Pos_y;
     if (ortographic_view == true) { /// TRUE when in ortographic_view.
@@ -151,6 +151,7 @@ int main()
         HandleInputs(window);
         // KeyHeldProcesses(currentGameStatePointer);
         KeyHeldProcesses();
+        MouseProcesses(window, true, activeCameraPointer);
 
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
