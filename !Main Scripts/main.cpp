@@ -27,8 +27,8 @@
 #include "Helper Scripts/input_helper.h"
 #include "Helper Scripts/debug_help.h"
 
-PerspectiveCamera* perspectiveCameraPointer = nullptr;
-OrthographicCamera* orthographicCameraPointer = nullptr;
+PerspectiveCamera* thirdPersonCameraPointer = nullptr;
+PerspectiveCamera* firstPersonCameraPointer = nullptr;
 Camera* activeCameraPointer = nullptr;
 
 Object* playerCarPointer = nullptr;
@@ -61,8 +61,8 @@ Object* slowCarPointer = nullptr;
 //     if (H_Held) activeCameraPointer->Rotate('R');
 //     if (G_Held) activeCameraPointer->Rotate('D');
 //     if (T_Held) activeCameraPointer->Rotate('U');
-//     if (TAB_Held) activeCameraPointer = orthographicCameraPointer;
-//         else activeCameraPointer = perspectiveCameraPointer;
+//     if (TAB_Held) activeCameraPointer = firstPersonCameraPointer;
+//         else activeCameraPointer = thirdPersonCameraPointer;
 // }
 
 void KeyHeldProcesses(){
@@ -74,8 +74,8 @@ void KeyHeldProcesses(){
     // if (DOWN_Held) fastCarPointer->MoveForward(-3);
     // if (LEFT_Held) fastCarPointer->Rotate('-', 'Y');
     // if (RIGHT_Held) fastCarPointer->Rotate('+', 'Y');
-    if (TAB_Held) activeCameraPointer = orthographicCameraPointer;
-        else activeCameraPointer = perspectiveCameraPointer;
+    if (TAB_Held) activeCameraPointer = firstPersonCameraPointer;
+        else activeCameraPointer = thirdPersonCameraPointer;
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
@@ -111,8 +111,8 @@ int main()
     SetUpWindow(window);
 
     // Make our Cameras
-    PerspectiveCamera perspectiveCamera(glm::vec3(0, 85, 50), 0, -30);
-    OrthographicCamera orthographicCamera(glm::vec3(0, 75, 65), 0, -90);
+    PerspectiveCamera thirdPersonCamera(glm::vec3(0, 85, 50), 0, -30);
+    PerspectiveCamera firstPersonCamera(glm::vec3(0, 90, -70), 0, -30);
 
     // Then our cars
     Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
@@ -137,8 +137,8 @@ int main()
     std::cout<<"threep!"<<std::endl;
 
     // Set our Pointers
-    perspectiveCameraPointer = &perspectiveCamera;
-    orthographicCameraPointer = &orthographicCamera;
+    thirdPersonCameraPointer = &thirdPersonCamera;
+    firstPersonCameraPointer = &firstPersonCamera;
     playerCarPointer = &playerCar;
     fastCarPointer = &fastCar;
     slowCarPointer = &slowCar;
@@ -163,6 +163,13 @@ int main()
         Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
         light.Render(shaderProgram, activeCameraPointer);
 
+        // Modify Camera Positions and Rotations
+        thirdPersonCamera.SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 120, playerCarPointer->GetPosition().z + 90});
+        firstPersonCamera.SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 40, playerCarPointer->GetPosition().z -42});
+        firstPersonCamera.SetRotation((playerCarPointer->GetRotation()));
+
+        // PrintVector(playerCarPointer->GetRotation());
+
         // Update Camera and Cars
         activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
         playerCarPointer->Update(shaderProgram, "transform0", 0);
@@ -176,12 +183,10 @@ int main()
 
         // Move Other Cars
         fastCarPointer->MoveForward(3.5);
-        slowCarPointer->MoveForward(2.25);
+        slowCarPointer->MoveForward(1.25);
 
         // Debug Messages
         // PrintVector(playerCarPointer->GetPosition());
-
-
 
         // Check Events and Swap Buffers
         glfwPollEvents();

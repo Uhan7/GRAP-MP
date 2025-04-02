@@ -1,5 +1,7 @@
 #include "orthographic_camera.h"
 
+// Bruh this not even gon be used oh well
+
 OrthographicCamera::OrthographicCamera(glm::vec3 positionVector, float startingYaw, float startingPitch):
     Camera(positionVector, startingYaw-90, startingPitch){}
 

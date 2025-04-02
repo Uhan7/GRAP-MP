@@ -10,14 +10,21 @@ Camera::~Camera(){}
 
 void Camera::SetPosition(glm::vec3 newPositionVector){
     cameraPosition = newPositionVector;
+    cameraTranslationMatrix = glm::translate(glm::mat4(1.0f), -cameraPosition);
 }
 
 void Camera::SetScale(glm::vec3 newScaleVector){
 
 }
 
-void Camera::SetRotation(float newYaw, float newPitch){
+void Camera::SetRotation(glm::vec3 newRotationVector){
+    yaw = newRotationVector.y;
+    pitch = glm::clamp(newRotationVector.x, -89.9f, 89.9f);
 
+    direction = glm::normalize(glm::vec3(
+        cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
+        sin(glm::radians(pitch)),
+        sin(glm::radians(yaw)) * cos(glm::radians(pitch))));
 }
 
 void Camera::MovePosition(char inputDirection){

@@ -26,7 +26,7 @@ public:
 
     void SetPosition(glm::vec3 newPositionVector);
     void SetScale(glm::vec3 newScaleVector);
-    void SetRotation(float newYaw, float newPitch);
+    void SetRotation(glm::vec3 newRotationVector);
     
     void MovePosition(char inputDirection);
     void Rotate(char inputDirection);

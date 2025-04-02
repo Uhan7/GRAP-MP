@@ -20,7 +20,7 @@ class Timer{
 
     public:
         Timer();
-        void Start(){active = true;}
+        void Start();
         void Stop();
 };
 

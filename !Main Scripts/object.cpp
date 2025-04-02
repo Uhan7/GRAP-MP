@@ -226,6 +226,14 @@ glm::vec3 Object::GetPosition(){
     return objectTranslationVector;
 }
 
+glm::vec3 Object::GetScale(){
+    return objectScaleVector;
+}
+
+glm::vec3 Object::GetRotation(){
+    return glm::degrees(glm::eulerAngles(objectRotationQuaternion));
+}
+
 std::vector<GLfloat> Object::GetFullVertexData(){
     return fullVertexData;
 }
