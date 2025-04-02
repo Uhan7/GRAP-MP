@@ -10,7 +10,7 @@ Gaming::Gaming(Timer* timer){
     PerspectiveCamera* FirstPersonCamera = new PerspectiveCamera(glm::vec3(0, 30, 0), 0, 0);
     this->thirdPersonCameraPointer = ThirdPersonCamera;
     this->firstPersonCameraPointer = FirstPersonCamera;
-    this->activeCameraPointer = this->thirdPersonCameraPointer;
+    this->activeCameraPointer = ThirdPersonCamera;
 
 
    /// Setup Object Variables
