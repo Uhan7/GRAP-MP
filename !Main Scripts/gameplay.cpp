@@ -6,28 +6,26 @@ Gaming::Gaming(Timer* timer){
     timer->Start();
 
     /// Setup Camera Pointers
-    PerspectiveCamera ThirdPersonCamera = PerspectiveCamera(glm::vec3(0, 85, 50), 0, -30);
-    PerspectiveCamera FirstPersonCamera = PerspectiveCamera(glm::vec3(0, 30, 0), 0, 0);
-    this->thirdPersonCameraPointer = &ThirdPersonCamera;
-    this->firstPersonCameraPointer = &FirstPersonCamera;
+    PerspectiveCamera* ThirdPersonCamera = new PerspectiveCamera(glm::vec3(0, 85, 50), 0, -30);
+    PerspectiveCamera* FirstPersonCamera = new PerspectiveCamera(glm::vec3(0, 30, 0), 0, 0);
+    this->thirdPersonCameraPointer = ThirdPersonCamera;
+    this->firstPersonCameraPointer = FirstPersonCamera;
+    this->activeCameraPointer = this->thirdPersonCameraPointer;
 
 
    /// Setup Object Variables
 
-   Object Kekw = Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
-   this->playerCarPointer = &Kekw;
+   this->playerCarPointer = new Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
    this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
    this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
    this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-   Object Omegalul = Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
-   this->fastCarPointer = &Omegalul;
+   this->fastCarPointer = new Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
    this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
    this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
    this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-   Object Pepega = Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
-   this->slowCarPointer = &Pepega;
+   this->slowCarPointer = new Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
    this->slowCarPointer->SetForward(glm::vec3(1, 0, 0));
    this->slowCarPointer->SetPosition(glm::vec3(-150, 0, 0));
    this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
@@ -52,7 +50,6 @@ void Gaming::InitiateObjects(){
 }
 
 void Gaming::Update(Timer* timer){
-
     thirdPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 120, playerCarPointer->GetPosition().z + 90});
     firstPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 30, playerCarPointer->GetPosition().z});
 

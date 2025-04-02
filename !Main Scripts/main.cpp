@@ -5,11 +5,12 @@
 #include <sstream>
 #include <string>
 #include "gameplay.cpp"
+#include "timer.cpp"
 
 
 PerspectiveCamera* thirdPersonCameraPointer = nullptr;
 PerspectiveCamera* firstPersonCameraPointer = nullptr;
-Camera* activeCameraPointer = nullptr;
+Camera* activeCameraPointer = thirdPersonCameraPointer;
 
 Object* playerCarPointer = nullptr;
 Object* fastCarPointer = nullptr;
@@ -96,7 +97,7 @@ int main()
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Epik Kart Deluxe HD", NULL, NULL);
     SetUpWindow(window);
 
-    Timer* timer;
+    Timer* timer = new Timer();
     Gaming Program = Gaming(timer);
 
     while(!glfwWindowShouldClose(window))
