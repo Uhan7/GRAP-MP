@@ -69,6 +69,7 @@
         "algorithm": "cpp",
         "*.frag": "cpp",
         "__verbose_abort": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "thread": "cpp"
     }
 }

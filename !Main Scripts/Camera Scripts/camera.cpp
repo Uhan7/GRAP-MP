@@ -18,13 +18,7 @@ void Camera::SetScale(glm::vec3 newScaleVector){
 }
 
 void Camera::SetRotation(glm::vec3 newRotationVector){
-    yaw = newRotationVector.y;
-    pitch = glm::clamp(newRotationVector.x, -89.9f, 89.9f);
-
-    direction = glm::normalize(glm::vec3(
-        cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
-        sin(glm::radians(pitch)),
-        sin(glm::radians(yaw)) * cos(glm::radians(pitch))));
+    yaw = glm::degrees(newRotationVector.y);
 }
 
 void Camera::MovePosition(char inputDirection){

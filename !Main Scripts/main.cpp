@@ -68,8 +68,14 @@ Object* slowCarPointer = nullptr;
 void KeyHeldProcesses(){
     if (W_Held) playerCarPointer->MoveForward(2.75);
     if (S_Held) playerCarPointer->MoveForward(-2.75);
-    if (A_Held) playerCarPointer->Rotate('-', 'Y');
-    if (D_Held) playerCarPointer->Rotate('+', 'Y');
+    if (A_Held){
+        playerCarPointer->Rotate('-', 'Y');
+        firstPersonCameraPointer->Rotate('L');
+    }
+    if (D_Held){
+        playerCarPointer->Rotate('+', 'Y');
+        firstPersonCameraPointer->Rotate('R');
+    }
     // if (UP_Held) fastCarPointer->MoveForward(3);
     // if (DOWN_Held) fastCarPointer->MoveForward(-3);
     // if (LEFT_Held) fastCarPointer->Rotate('-', 'Y');
@@ -112,7 +118,7 @@ int main()
 
     // Make our Cameras
     PerspectiveCamera thirdPersonCamera(glm::vec3(0, 85, 50), 0, -30);
-    PerspectiveCamera firstPersonCamera(glm::vec3(0, 90, -70), 0, -30);
+    PerspectiveCamera firstPersonCamera(glm::vec3(0, 30, 0), 0, 0);
 
     // Then our cars
     Object playerCar("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
@@ -165,10 +171,8 @@ int main()
 
         // Modify Camera Positions and Rotations
         thirdPersonCamera.SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 120, playerCarPointer->GetPosition().z + 90});
-        firstPersonCamera.SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 40, playerCarPointer->GetPosition().z -42});
-        firstPersonCamera.SetRotation((playerCarPointer->GetRotation()));
-
-        // PrintVector(playerCarPointer->GetRotation());
+        firstPersonCamera.SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 30, playerCarPointer->GetPosition().z});
+        // firstPersonCamera.SetRotation(playerCarPointer->GetRotation());
 
         // Update Camera and Cars
         activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
@@ -177,7 +181,7 @@ int main()
         slowCarPointer->Update(shaderProgram, "transform2", 2);
 
         // Rendering Object
-        playerCarPointer->Render(shaderProgram, 0, 0);
+        if (activeCameraPointer == thirdPersonCameraPointer) playerCarPointer->Render(shaderProgram, 0, 0);
         fastCarPointer->Render(shaderProgram, 1, 1);
         slowCarPointer->Render(shaderProgram, 2, 2);
 
