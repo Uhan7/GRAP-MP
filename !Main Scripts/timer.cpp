@@ -10,6 +10,8 @@ void Timer::Start(){
     start = steady_clock::now();
 }
 
+steady_clock::time_point Timer::getStart(){return start;}
+
 void Timer::Stop(){
     active = false;
     ending = steady_clock::now();

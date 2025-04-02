@@ -32,6 +32,9 @@
 class Gaming{
     private:
         bool game_running = false;
+        bool Player_Cross = false;
+        bool Fast_Cross = false;
+        bool Slow_Cross = false;
 
         PerspectiveCamera* thirdPersonCameraPointer = nullptr;
         PerspectiveCamera* firstPersonCameraPointer = nullptr;

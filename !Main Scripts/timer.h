@@ -19,6 +19,8 @@ class Timer{
 
     public:
         Timer();
+
+        steady_clock::time_point getStart();
         void Start();
         void Stop();
 };
