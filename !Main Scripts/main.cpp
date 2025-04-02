@@ -46,16 +46,16 @@ Object* slowCarPointer = nullptr;
 //         else activeCameraPointer = thirdPersonCameraPointer;
 // }
 
-void KeyHeldProcesses(Gaming program){
-    if (W_Held) program.getPlayer()->MoveForward(2.75);
-    if (S_Held) program.getPlayer()->MoveForward(-2.75);
+void KeyHeldProcesses(Gaming* program){
+    if (W_Held) program->getPlayer()->MoveForward(2.75);
+    if (S_Held) program->getPlayer()->MoveForward(-2.75);
     if (A_Held){
-        program.getPlayer()->Rotate('-', 'Y');
-        program.getFirstPersonCamera()->Rotate('L');
+        program->getPlayer()->Rotate('-', 'Y');
+        program->getFirstPersonCamera()->Rotate('L');
     }
     if (D_Held){
-        program.getPlayer()->Rotate('+', 'Y');
-        program.getFirstPersonCamera()->Rotate('R');
+        program->getPlayer()->Rotate('+', 'Y');
+        program->getFirstPersonCamera()->Rotate('R');
     }
     // if (UP_Held) fastCarPointer->MoveForward(3);
     // if (DOWN_Held) fastCarPointer->MoveForward(-3);
@@ -63,8 +63,8 @@ void KeyHeldProcesses(Gaming program){
     // if (RIGHT_Held) fastCarPointer->Rotate('+', 'Y');
     if (TAB_Held)
     {
-        program.setActiveCamera(program.getFirstPersonCamera());
-    } else program.setActiveCamera(program.getThirdPersonCamera());
+        program->setActiveCamera(program->getFirstPersonCamera());
+    } else program->setActiveCamera(program->getThirdPersonCamera());
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
@@ -107,7 +107,7 @@ int main()
         // Inputs, create a Game State for it
         HandleInputs(window);
         // KeyHeldProcesses(currentGameStatePointer);
-        KeyHeldProcesses(Program);
+        KeyHeldProcesses(&Program);
         MouseProcesses(window, true, Program.getActiveCamera());
 
         // Rendering BG
