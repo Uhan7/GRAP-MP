@@ -61,8 +61,10 @@ void KeyHeldProcesses(Gaming program){
     // if (DOWN_Held) fastCarPointer->MoveForward(-3);
     // if (LEFT_Held) fastCarPointer->Rotate('-', 'Y');
     // if (RIGHT_Held) fastCarPointer->Rotate('+', 'Y');
-    if (TAB_Held) program.setActiveCamera(program.getFirstPersonCamera());
-        else program.setActiveCamera(program.getThirdPersonCamera());
+    if (TAB_Held)
+    {
+        program.setActiveCamera(program.getFirstPersonCamera());
+    } else program.setActiveCamera(program.getThirdPersonCamera());
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
