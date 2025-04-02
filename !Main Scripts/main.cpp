@@ -12,6 +12,7 @@
 #include <sstream>
 #include <string>
 
+
 // Referenced Scripts
 #include "setup.cpp"
 #include "settings.h"
@@ -21,6 +22,7 @@
 #include "Camera Scripts/perspective_camera.cpp"
 #include "Camera Scripts/orthographic_camera.cpp"
 #include "light.cpp"
+#include "gameplay.cpp"
 
 #include "Helper Scripts/input_helper.h"
 #include "Helper Scripts/debug_help.h"
@@ -32,6 +34,7 @@ Camera* activeCameraPointer = nullptr;
 Object* playerCarPointer = nullptr;
 Object* fastCarPointer = nullptr;
 Object* slowCarPointer = nullptr;
+
 
 // void KeyHeldProcesses(){ 
 //     if (D_Held) playerCarPointer->Translate('R');
@@ -177,6 +180,8 @@ int main()
 
         // Debug Messages
         // PrintVector(playerCarPointer->GetPosition());
+
+
 
         // Check Events and Swap Buffers
         glfwPollEvents();
