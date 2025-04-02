@@ -61,6 +61,7 @@ class Gaming{
         unsigned int getSkyboxProg();
 
         /// RENDERING FUNCTIONS
+        void InitiateObjects();
         void Update(Timer* timer);
 
         /// GAME LOOP FUNCTIONS

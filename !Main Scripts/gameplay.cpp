@@ -6,24 +6,28 @@ Gaming::Gaming(Timer* timer){
     timer->Start();
 
     /// Setup Camera Pointers
-    this->thirdPersonCameraPointer = &PerspectiveCamera(glm::vec3(0, 85, 50), 0, -30);
-    this->firstPersonCameraPointer = &PerspectiveCamera(glm::vec3(0, 30, 0), 0, 0);
+    PerspectiveCamera ThirdPersonCamera = PerspectiveCamera(glm::vec3(0, 85, 50), 0, -30);
+    PerspectiveCamera FirstPersonCamera = PerspectiveCamera(glm::vec3(0, 30, 0), 0, 0);
+    this->thirdPersonCameraPointer = &ThirdPersonCamera;
+    this->firstPersonCameraPointer = &FirstPersonCamera;
 
 
    /// Setup Object Variables
-   this->playerCarPointer = &Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f); 
+
+   Object Kekw = Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
+   this->playerCarPointer = &Kekw;
    this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
    this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
    this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-
-   this->fastCarPointer = &Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
+   Object Omegalul = Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
+   this->fastCarPointer = &Omegalul;
    this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
    this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
    this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-
-   this->slowCarPointer = &Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
+   Object Pepega = Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
+   this->slowCarPointer = &Pepega;
    this->slowCarPointer->SetForward(glm::vec3(1, 0, 0));
    this->slowCarPointer->SetPosition(glm::vec3(-150, 0, 0));
    this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
@@ -43,7 +47,9 @@ Object* Gaming::getSlowCar(){return slowCarPointer;}
 unsigned int Gaming::getShaderProg(){return shaderProgram;}
 unsigned int Gaming::getSkyboxProg(){return skyboxShaderProgram;}
 
+void Gaming::InitiateObjects(){
 
+}
 
 void Gaming::Update(Timer* timer){
 
