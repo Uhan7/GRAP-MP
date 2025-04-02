@@ -38,6 +38,10 @@ Gaming::Gaming(Timer* timer){
 PerspectiveCamera* Gaming::getThirdPersonCamera(){return thirdPersonCameraPointer;}
 PerspectiveCamera* Gaming::getFirstPersonCamera(){return firstPersonCameraPointer;}
 Camera* Gaming::getActiveCamera(){return activeCameraPointer;}
+void Gaming::setActiveCamera(PerspectiveCamera* view){
+    activeCameraPointer = view;
+}
+
 Object* Gaming::getPlayer(){return playerCarPointer;}
 Object* Gaming::getFastCar(){return fastCarPointer;}
 Object* Gaming::getSlowCar(){return slowCarPointer;}

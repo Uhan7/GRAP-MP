@@ -53,6 +53,7 @@ class Gaming{
         PerspectiveCamera* getThirdPersonCamera();
         PerspectiveCamera* getFirstPersonCamera();
         Camera* getActiveCamera();
+        void setActiveCamera(PerspectiveCamera* view);
         Object* getPlayer();
         Object* getFastCar();
         Object* getSlowCar();
