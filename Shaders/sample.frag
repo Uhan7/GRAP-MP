@@ -47,8 +47,10 @@ void main() {
     // FragColor = vec4(0.59, 0.29, 0.0, 1.0);
     switch(textureNumber){
         case 0: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex0, texCoord); break;
-        case 1: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex1, texCoord); break;
-        case 2: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex2, texCoord); break;
+        case 1: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex1, texCoord);
+                FragColor.a = 0.5f; break;
+        case 2: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex2, texCoord);
+                FragColor.a = 0.5f; break;
         case 3: FragColor = vec4(specColor + diffuse + ambientCol, 1.0) * texture(tex3, texCoord); break;
         default: break;
     }

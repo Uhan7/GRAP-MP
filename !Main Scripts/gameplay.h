@@ -35,6 +35,7 @@ class Gaming{
         bool Player_Cross = false;
         bool Fast_Cross = false;
         bool Slow_Cross = false;
+        bool All_Cross = false;
 
         PerspectiveCamera* thirdPersonCameraPointer = nullptr;
         PerspectiveCamera* firstPersonCameraPointer = nullptr;

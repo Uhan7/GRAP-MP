@@ -97,6 +97,12 @@ void Gaming::runRace(Timer* timer){
         Slow_Cross = true;
     }
 
+    if (Player_Cross && Fast_Cross && Slow_Cross && !All_Cross){
+        steady_clock::time_point time = steady_clock::now();
+        auto duration = duration_cast<seconds>(time - timer->getStart());
+        cout << "ALL CARS crossed the finish line at " << duration.count() << "seconds!" << endl;
+        All_Cross = true;
+    }
 
     if(!stillRacing()){
         game_running = false;

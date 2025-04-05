@@ -17,6 +17,4 @@ void Timer::Stop(){
     ending = steady_clock::now();
 
     auto duration = duration_cast<seconds>(ending - start);
-    cout << "All vehicles crossed the finishline at " << duration.count() << "seconds!" << endl;
-
 }

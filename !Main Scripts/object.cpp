@@ -190,6 +190,9 @@ void Object::Render(unsigned int shaderProgram, int textureNumber, int transform
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     GLuint uniformTransformLocation = glGetUniformLocation(shaderProgram, "transformNumber");
     glUniform1i(uniformTransformLocation, transformNumber);
 
