@@ -114,6 +114,10 @@ void Object::SetRotation(glm::vec3 newRotationEulerAngles){
     objectRotationQuaternion = glm::quat(glm::radians(newRotationEulerAngles));
 }
 
+glm::vec3 Object::GetForward(){
+    return forward;
+}
+
 void Object::Translate(char inputDirection, float translateSpeed){
     switch (inputDirection){
         case 'L': objectTranslationVector -= glm::vec3(translateSpeed, 0.0f, 0.0f); break;
