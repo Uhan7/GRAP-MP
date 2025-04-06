@@ -64,16 +64,18 @@ private:
         "Models and Textures/Skybox/rainbow_bk.png"
     };
 
-    // std::string skyboxFace1[6]{
-    //     "Models and Textures/Skybox/rainbow_rt.png",
-    //     "Models and Textures/Skybox/rainbow_lf.png",
-    //     "Models and Textures/Skybox/rainbow_up.png",
-    //     "Models and Textures/Skybox/rainbow_dn.png",
-    //     "Models and Textures/Skybox/rainbow_ft.png",
-    //     "Models and Textures/Skybox/rainbow_bk.png"
-    // };
+    std::string skyboxFace1[6]{
+        "Models and Textures/Skybox/posx.jpg",
+        "Models and Textures/Skybox/negx.jpg",
+        "Models and Textures/Skybox/posy.jpg",
+        "Models and Textures/Skybox/negy.jpg",
+        "Models and Textures/Skybox/posz.jpg",
+        "Models and Textures/Skybox/negz.jpg"
+    };
 
 public:
     Skybox(int skyboxFaceNumber);
     void Render(unsigned int skyboxShaderProgram, Camera* activeCameraPointer);
+
+    void ChangeFaces(int skyboxFaceNumber);
 };

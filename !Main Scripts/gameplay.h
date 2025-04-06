@@ -76,6 +76,6 @@ class Gaming{
         void runRace(Timer* timer);
         void endRace(Timer* timer);
 
-
+        void SetToDay(bool value);
 
 };

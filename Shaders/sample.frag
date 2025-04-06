@@ -13,7 +13,7 @@ uniform sampler2D tex3;
 uniform sampler2D tex4;
 uniform sampler2D tex5;
 
-uniformsampler2D norm_tex;
+uniform sampler2D norm_tex;
 uniform int textureNumber;  
 
 // Lights
@@ -36,7 +36,7 @@ void main(){
 
     vec3 normal;
 
-    switch(texturenumber){
+    switch(textureNumber){
         case 0:
         case 1:
         case 2:

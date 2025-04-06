@@ -19,6 +19,8 @@ Object* slowCarPointer = nullptr;
 Light* light1Pointer = nullptr;
 Light* light2Pointer = nullptr;
 
+Skybox* skyboxPointer = nullptr;
+
 // void KeyHeldProcesses(){ 
 //     if (D_Held) playerCarPointer->Translate('R');
 //     if (A_Held) playerCarPointer->Translate('L');
@@ -67,6 +69,22 @@ void KeyHeldProcesses(Gaming* program){
         program->getPlayer()->Rotate('+', 'Y');
         program->getFirstPersonCamera()->Rotate('R');
     }
+    if (Q_Pressed && Q_CanPress){
+        program->SetToDay(true);
+        skyboxPointer->ChangeFaces(0);
+        Q_CanPress = false;
+    }
+    if (E_Pressed && E_CanPress){
+        program->SetToDay(false);
+        skyboxPointer->ChangeFaces(1);
+        E_CanPress = false;
+    }
+    if (SPACE_Held){
+        // Stop enemy karts
+    }
+    else{
+        // Continue enemy karts
+    }
     // if (UP_Held) fastCarPointer->MoveForward(3);
     // if (DOWN_Held) fastCarPointer->MoveForward(-3);
     // if (LEFT_Held) fastCarPointer->Rotate('-', 'Y');
@@ -112,13 +130,15 @@ int main()
     Timer* timer = new Timer();
     Gaming Program = Gaming(timer);
 
+    Skybox skybox(0);
+
+    skyboxPointer = &skybox;
+
     Light light1(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
     Light light2(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
 
     light1Pointer = &light1;
     light2Pointer = &light2;
-
-    Skybox skybox(0);
 
     while(!glfwWindowShouldClose(window))
     {   

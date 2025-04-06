@@ -12,7 +12,6 @@ Gaming::Gaming(Timer* timer){
     this->firstPersonCameraPointer = FirstPersonCamera;
     this->activeCameraPointer = ThirdPersonCamera;
 
-
    /// Setup Object Variables
 
    this->playerCarPointer = new Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
@@ -126,4 +125,8 @@ bool Gaming::stillRacing(){
 
 void Gaming::endRace(Timer* timer){
     timer->Stop();
+}
+
+void Gaming::SetToDay(bool value){
+    std::cout << (value ? "Daytime" : "Nighttime") << std::endl;
 }
