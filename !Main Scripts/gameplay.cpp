@@ -80,13 +80,15 @@ void Gaming::Update(Timer* timer){
     // After rendering skybox, enable depth writing again for cars
     glDepthMask(GL_TRUE);  // Enable depth mask for subsequent rendering
 
+    thirdPersonCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
+    firstPersonCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
     activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
     playerCarPointer->Update(shaderProgram, "transform0", 0);
     fastCarPointer->Update(shaderProgram, "transform1", 1);
     slowCarPointer->Update(shaderProgram, "transform2", 2);
 
     fastCarPointer->MoveForward(3.5);
-    slowCarPointer->MoveForward(1.2);
+    slowCarPointer->MoveForward(0);
 
     playerLightLeftPointer->PositionFromCar(playerCarPointer, 25.f, -7.f);
     playerLightRightPointer->PositionFromCar(playerCarPointer, 25.f, 7.f);

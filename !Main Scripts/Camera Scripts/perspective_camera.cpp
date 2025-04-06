@@ -4,6 +4,8 @@ PerspectiveCamera::PerspectiveCamera(glm::vec3 positionVector, float startingYaw
     Camera(positionVector, startingYaw, startingPitch){}
 
 void PerspectiveCamera::Update(unsigned int shaderProgram, int screenWidth, int screenHeight){
+    pitch = glm::clamp(pitch, -89.9f, 89.9f);
+
     direction = glm::normalize(glm::vec3(
         cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
         sin(glm::radians(pitch)),
@@ -23,7 +25,7 @@ void PerspectiveCamera::Update(unsigned int shaderProgram, int screenWidth, int 
         0.0f, 0.0f, 0.0f, 1.0f
     );
 
-    viewMatrix = cameraOrientationMatrix * cameraTranslationMatrix;
+    viewMatrix = glm::lookAt(cameraPosition, Center, WorldUp);
     projectionMatrix = glm::perspective(glm::radians(90.f), static_cast<float>(screenWidth) / static_cast<float>(screenHeight), 0.1f, 1000.f);
 
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
