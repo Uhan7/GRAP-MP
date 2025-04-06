@@ -14,6 +14,7 @@ protected:
     
     
     float mouse_x_pos = 0; /// Test variable for the orthographic camera.
+    float mouse_y_pos = 0;
 
     float yaw;
     float pitch;
@@ -38,5 +39,6 @@ public:
     glm::mat4 GetCameraProjectionMatrix();
 
     float GetMouse_XPos();
-    void UpdateMousePos(float x);
+    float GetMouse_YPos();
+    void UpdateMousePos(float x, float y);
 };

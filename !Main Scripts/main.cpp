@@ -89,16 +89,22 @@ void MouseProcesses(GLFWwindow* window, bool ortographic_view, Camera* Camera){
             glfwGetCursorPos(window, &Curr_Pos_x, &Curr_Pos_y);
             if (Camera->GetMouse_XPos() > Curr_Pos_x) { //TRUE when the Mouse is moved to the left
                 Camera->Rotate('L');
-            }
-            else if (Camera->GetMouse_XPos() < Curr_Pos_x) { // TRUE when the Mouse is moved to the right
+            } else if (Camera->GetMouse_XPos() < Curr_Pos_x) { // TRUE when the Mouse is moved to the right
                 Camera->Rotate('R');
             }
+            
+            if (Camera->GetMouse_YPos() > Curr_Pos_x){
+                Camera->Rotate('U');
+            } else if(Camera->GetMouse_YPos()> Curr_Pos_y){
+                Camera->Rotate('D');
+            }
+
         }
         else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE) { /// TRUE when left click is released
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
 
-        Camera->UpdateMousePos(Curr_Pos_x);
+        Camera->UpdateMousePos(Curr_Pos_x, Curr_Pos_y);
     }
 }
 
