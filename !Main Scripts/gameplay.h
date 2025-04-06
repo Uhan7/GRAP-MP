@@ -48,6 +48,10 @@ class Gaming{
 
         Light* playerLightLeftPointer = nullptr;
         Light* playerLightRightPointer = nullptr;
+        Light* fastCarLightLeftPointer = nullptr;
+        Light* fastCarLightRightPointer = nullptr;
+        Light* slowCarLightLeftPointer = nullptr;
+        Light* slowCarLightRightPointer = nullptr;
 
         Skybox* skyboxPointer = nullptr;
 
@@ -72,6 +76,10 @@ class Gaming{
 
         Light* GetPlayerLightLeftPointer();
         Light* GetPlayerLightRightPointer();
+        Light* GetFastCarLightLeftPointer();
+        Light* GetFastCarLightRightPointer();
+        Light* GetSlowLightLeftPointer();
+        Light* GetSlowLightRightPointer();
 
         unsigned int getShaderProg();
         unsigned int getSkyboxProg();

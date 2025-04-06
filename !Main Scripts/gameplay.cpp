@@ -36,9 +36,13 @@ Gaming::Gaming(Timer* timer){
 
     this->playerLightLeftPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
     this->playerLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
+    this->fastCarLightLeftPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
+    this->fastCarLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
+    this->slowCarLightLeftPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
+    this->slowCarLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
 
     // Set Up Skybox
-    this ->skyboxPointer = new Skybox(0);
+    this->skyboxPointer = new Skybox(0);
 
 }
 
@@ -55,6 +59,10 @@ Object* Gaming::getSlowCar(){return slowCarPointer;}
 
 Light* Gaming::GetPlayerLightLeftPointer(){return playerLightLeftPointer;}
 Light* Gaming::GetPlayerLightRightPointer(){return playerLightRightPointer;}
+Light* Gaming::GetFastCarLightLeftPointer(){return fastCarLightLeftPointer;}
+Light* Gaming::GetFastCarLightRightPointer(){return fastCarLightRightPointer;}
+Light* Gaming::GetSlowLightLeftPointer(){return slowCarLightLeftPointer;}
+Light* Gaming::GetSlowLightRightPointer(){return slowCarLightRightPointer;}
 
 unsigned int Gaming::getShaderProg(){return shaderProgram;}
 unsigned int Gaming::getSkyboxProg(){return skyboxShaderProgram;}
@@ -82,9 +90,17 @@ void Gaming::Update(Timer* timer){
 
     playerLightLeftPointer->PositionFromCar(playerCarPointer, 25.f, -7.f);
     playerLightRightPointer->PositionFromCar(playerCarPointer, 25.f, 7.f);
+    fastCarLightLeftPointer->PositionFromCar(fastCarPointer, 15.f, -5.f);
+    fastCarLightRightPointer->PositionFromCar(fastCarPointer, 15.f, 5.f);
+    slowCarLightLeftPointer->PositionFromCar(slowCarPointer, 20.f, -3.f);
+    slowCarLightRightPointer->PositionFromCar(slowCarPointer, 20.f, 3.f);
     
     playerLightLeftPointer->Update();
     playerLightRightPointer->Update();
+    fastCarLightLeftPointer->Update();
+    fastCarLightRightPointer->Update();
+    slowCarLightLeftPointer->Update();
+    slowCarLightRightPointer->Update();
     
     runRace(timer);
 }
@@ -99,6 +115,10 @@ void Gaming::Render(){
 
     playerLightLeftPointer->Render(getShaderProg(), getActiveCamera(), 0);
     playerLightRightPointer->Render(getShaderProg(), getActiveCamera(), 1);
+    if (!timeIsDay) fastCarLightLeftPointer->Render(getShaderProg(), getActiveCamera(), 2);
+    if (!timeIsDay) fastCarLightRightPointer->Render(getShaderProg(), getActiveCamera(), 3);
+    if (!timeIsDay) slowCarLightLeftPointer->Render(getShaderProg(), getActiveCamera(), 4);
+    if (!timeIsDay) slowCarLightRightPointer->Render(getShaderProg(), getActiveCamera(), 5);
 }
 
 
