@@ -45,4 +45,6 @@ public:
     void SetForward(glm::vec3 newForward);
     void SetPosition(glm::vec3 newPosition);
     void SetRotation(glm::vec3 newRotationEulerAngles);
+
+    void PositionFromCar(Object* carPointer, float forwardOffset, float sideOffset);
 };

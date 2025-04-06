@@ -46,8 +46,15 @@ class Gaming{
         Object* fastCarPointer = nullptr;
         Object* slowCarPointer = nullptr;
 
+        Light* playerLightLeftPointer = nullptr;
+        Light* playerLightRightPointer = nullptr;
+
+        Skybox* skyboxPointer = nullptr;
+
         unsigned int shaderProgram;
         unsigned int skyboxShaderProgram;
+
+        bool timeIsDay = true;
 
     public:
         ///Gaming Constructor
@@ -63,6 +70,9 @@ class Gaming{
         Object* getFastCar();
         Object* getSlowCar();
 
+        Light* GetPlayerLightLeftPointer();
+        Light* GetPlayerLightRightPointer();
+
         unsigned int getShaderProg();
         unsigned int getSkyboxProg();
 
@@ -77,5 +87,7 @@ class Gaming{
         void endRace(Timer* timer);
 
         void SetToDay(bool value);
+
+        bool GetTimeIsDay();
 
 };

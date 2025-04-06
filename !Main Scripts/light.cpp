@@ -44,12 +44,16 @@ void Light::Render(unsigned int shaderProgram, Camera* activeCameraPointer, int 
     // This is so epic
     std::string lightPosName = "lightPos[" + std::to_string(lightIndex) + "]";
     std::string lightColorName = "lightColor[" + std::to_string(lightIndex) + "]";
+    std::string lightDirectionName = "lightDirection[" + std::to_string(lightIndex) + "]";
 
     GLuint uniformLightPosAddress = glGetUniformLocation(shaderProgram, lightPosName.c_str());
     glUniform3fv(uniformLightPosAddress, 1, glm::value_ptr(lightPos));
 
     GLuint uniformLightColorAddress = glGetUniformLocation(shaderProgram, lightColorName.c_str());
     glUniform3fv(uniformLightColorAddress, 1, glm::value_ptr(lightColor));
+
+    GLuint uniformLightDirectionAddress = glGetUniformLocation(shaderProgram, lightDirectionName.c_str());
+    glUniform3fv(uniformLightDirectionAddress, 1, glm::value_ptr(forward));
     
     GLuint uniformAmbientStrengthAddress = glGetUniformLocation(shaderProgram, "ambientStr");
     glUniform1f(uniformAmbientStrengthAddress, (ambientStr));
@@ -77,4 +81,12 @@ void Light::SetPosition(glm::vec3 newPosition){
 
 void Light::SetRotation(glm::vec3 newRotationEulerAngles){
     lightRotationQuaternion = glm::quat(glm::radians(newRotationEulerAngles));
+    forward = lightRotationQuaternion * glm::vec3(0, 0, -1);
+}
+
+void Light::PositionFromCar(Object* carPointer, float forwardOffset, float sideOffset){
+    SetPosition(carPointer->GetPosition());
+    SetRotation(carPointer->GetRotation());
+    MoveForward(forwardOffset);
+    MoveSide(sideOffset);
 }

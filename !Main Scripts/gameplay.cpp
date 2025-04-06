@@ -12,25 +12,33 @@ Gaming::Gaming(Timer* timer){
     this->firstPersonCameraPointer = FirstPersonCamera;
     this->activeCameraPointer = ThirdPersonCamera;
 
-   /// Setup Object Variables
+    /// Setup Object Variables
 
-   this->playerCarPointer = new Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
-   this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
-   this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
-   this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
+    this->playerCarPointer = new Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
+    this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
+    this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
+    this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-   this->fastCarPointer = new Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
-   this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
-   this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
-   this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
+    this->fastCarPointer = new Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
+    this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
+    this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
+    this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-   this->slowCarPointer = new Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
-   this->slowCarPointer->SetForward(glm::vec3(1, 0, 0));
-   this->slowCarPointer->SetPosition(glm::vec3(-150, 0, 0));
-   this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
+    this->slowCarPointer = new Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
+    this->slowCarPointer->SetForward(glm::vec3(1, 0, 0));
+    this->slowCarPointer->SetPosition(glm::vec3(-150, 0, 0));
+    this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-   this->shaderProgram = CreateShaderProgram("Shaders/sample.vert", "Shaders/sample.frag");
-   this->skyboxShaderProgram = CreateShaderProgram("Shaders/skybox.vert", "Shaders/skybox.frag");
+    this->shaderProgram = CreateShaderProgram("Shaders/sample.vert", "Shaders/sample.frag");
+    this->skyboxShaderProgram = CreateShaderProgram("Shaders/skybox.vert", "Shaders/skybox.frag");
+
+   // Set up Lights
+
+    this->playerLightLeftPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
+    this->playerLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 3.f, 5.0f);
+
+    // Set Up Skybox
+    this ->skyboxPointer = new Skybox(0);
 
 }
 
@@ -45,8 +53,12 @@ Object* Gaming::getPlayer(){return playerCarPointer;}
 Object* Gaming::getFastCar(){return fastCarPointer;}
 Object* Gaming::getSlowCar(){return slowCarPointer;}
 
+Light* Gaming::GetPlayerLightLeftPointer(){return playerLightLeftPointer;}
+Light* Gaming::GetPlayerLightRightPointer(){return playerLightRightPointer;}
+
 unsigned int Gaming::getShaderProg(){return shaderProgram;}
 unsigned int Gaming::getSkyboxProg(){return skyboxShaderProgram;}
+
 
 void Gaming::InitiateObjects(){
 
@@ -66,15 +78,27 @@ void Gaming::Update(Timer* timer){
     slowCarPointer->Update(shaderProgram, "transform2", 2);
 
     fastCarPointer->MoveForward(3.5);
-    slowCarPointer->MoveForward(1.25);
+    slowCarPointer->MoveForward(1.2);
+
+    playerLightLeftPointer->PositionFromCar(playerCarPointer, 25.f, -7.f);
+    playerLightRightPointer->PositionFromCar(playerCarPointer, 25.f, 7.f);
+    
+    playerLightLeftPointer->Update();
+    playerLightRightPointer->Update();
     
     runRace(timer);
 }
 
 void Gaming::Render(){
+
+    skyboxPointer->Render(getSkyboxProg(), getActiveCamera());
+
     if (activeCameraPointer == thirdPersonCameraPointer) playerCarPointer->Render(shaderProgram, 0, 0);
     fastCarPointer->Render(shaderProgram, 1, 1);
     slowCarPointer->Render(shaderProgram, 2, 2);
+
+    playerLightLeftPointer->Render(getShaderProg(), getActiveCamera(), 0);
+    playerLightRightPointer->Render(getShaderProg(), getActiveCamera(), 1);
 }
 
 
@@ -128,5 +152,16 @@ void Gaming::endRace(Timer* timer){
 }
 
 void Gaming::SetToDay(bool value){
-    std::cout << (value ? "Daytime" : "Nighttime") << std::endl;
+    timeIsDay = value;
+
+    if (value == true){
+        skyboxPointer->ChangeFaces(0);
+        playerLightLeftPointer->SetColor(glm::vec3(0, 0, 0));
+        playerLightRightPointer->SetColor(glm::vec3(0, 0, 0));
+    }
+    else{
+        skyboxPointer->ChangeFaces(1);
+    }
 }
+
+bool Gaming::GetTimeIsDay(){return timeIsDay;}

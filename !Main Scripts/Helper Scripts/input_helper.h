@@ -15,7 +15,7 @@ bool D_Held, A_Held, W_Held, S_Held, LEFT_SHIFT_Held, SPACE_Held,
     F_Held, H_Held, T_Held, G_Held,
     TAB_Held,
     Q_Pressed, E_Pressed,
-    Q_CanPress, E_CanPress;
+    Q_CanPress=true, E_CanPress=true;
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (key == GLFW_KEY_D) D_Held = (action != GLFW_RELEASE);

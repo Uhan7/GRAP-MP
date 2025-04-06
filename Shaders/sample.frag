@@ -22,6 +22,7 @@ uniform int textureNumber;
 
 uniform vec3 lightPos[LIGHTS];
 uniform vec3 lightColor[LIGHTS];
+uniform vec3 lightDirection[LIGHTS];
 
 uniform float ambientStr;
 uniform vec3 ambientColor;
@@ -55,7 +56,7 @@ void main(){
         float constant = 0.85;
         float linear = 0.0025;
         float quadratic = 0.0015;
-        float attenuation = 1.0 / (constant + linear * distanceToObj + quadratic * (distanceToObj * distanceToObj));
+        float attenuation = 1.0 / (constant + linear * distanceToObj + quadratic * distanceToObj * distanceToObj);
 
         vec3 lightDir = normalize(lightPos[i] - fragPos);
         float diff = max(dot(normal, lightDir), 0.0);

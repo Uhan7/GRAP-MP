@@ -7,20 +7,6 @@
 #include "gameplay.cpp"
 #include "timer.cpp"
 
-
-PerspectiveCamera* thirdPersonCameraPointer = nullptr;
-PerspectiveCamera* firstPersonCameraPointer = nullptr;
-Camera* activeCameraPointer = thirdPersonCameraPointer;
-
-Object* playerCarPointer = nullptr;
-Object* fastCarPointer = nullptr;
-Object* slowCarPointer = nullptr;
-
-Light* light1Pointer = nullptr;
-Light* light2Pointer = nullptr;
-
-Skybox* skyboxPointer = nullptr;
-
 // void KeyHeldProcesses(){ 
 //     if (D_Held) playerCarPointer->Translate('R');
 //     if (A_Held) playerCarPointer->Translate('L');
@@ -53,13 +39,16 @@ Skybox* skyboxPointer = nullptr;
 void KeyHeldProcesses(Gaming* program){
     if (W_Held){
         program->getPlayer()->MoveForward(2.75);
-        light1Pointer->SetColor(glm::vec3(2, 2, 2));
-        light2Pointer->SetColor(glm::vec3(2, 2, 2));
+        if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(2, 2, 2));
+        if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(2, 2, 2));
     }
     if (S_Held){
         program->getPlayer()->MoveForward(-2.75);
-        light1Pointer->SetColor(glm::vec3(5, 0, 0));
-        light2Pointer->SetColor(glm::vec3(5, 0, 0));
+        if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(5, 0, 0));
+        if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(5, 0, 0));
+    } else{
+        if (!program->GetTimeIsDay() && !W_Held) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(1, 1, 1));
+        if (!program->GetTimeIsDay() && !W_Held) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(1, 1, 1));
     }
     if (A_Held){
         program->getPlayer()->Rotate('-', 'Y');
@@ -71,12 +60,10 @@ void KeyHeldProcesses(Gaming* program){
     }
     if (Q_Pressed && Q_CanPress){
         program->SetToDay(true);
-        skyboxPointer->ChangeFaces(0);
         Q_CanPress = false;
     }
     if (E_Pressed && E_CanPress){
         program->SetToDay(false);
-        skyboxPointer->ChangeFaces(1);
         E_CanPress = false;
     }
     if (SPACE_Held){
@@ -130,16 +117,6 @@ int main()
     Timer* timer = new Timer();
     Gaming Program = Gaming(timer);
 
-    Skybox skybox(0);
-
-    skyboxPointer = &skybox;
-
-    Light light1(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
-    Light light2(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
-
-    light1Pointer = &light1;
-    light2Pointer = &light2;
-
     while(!glfwWindowShouldClose(window))
     {   
         // Inputs
@@ -151,30 +128,10 @@ int main()
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Lighting Stuff
-        light1.SetRotation(Program.getPlayer()->GetRotation());
-        light1.SetPosition(Program.getPlayer()->GetPosition());
-        light1.SetForward(Program.getPlayer()->GetForward());
-        light1.MoveForward(20.f);
-        light1.MoveSide(6.f);
-        
-        light2.SetRotation(Program.getPlayer()->GetRotation());
-        light2.SetPosition(Program.getPlayer()->GetPosition());
-        light2.SetForward(Program.getPlayer()->GetForward());
-        light2.MoveForward(20.f);
-        light2.MoveSide(-6.f);
-
-        light1.Update();
-        light2.Update();
-
-        light1.Render(Program.getShaderProg(), Program.getActiveCamera(), 0);
-        light2.Render(Program.getShaderProg(), Program.getActiveCamera(), 1);
-
         // Game update
         Program.Update(timer);
 
         //Render
-        skybox.Render(Program.getSkyboxProg(), Program.getActiveCamera());
         Program.Render();
 
         glfwPollEvents();
