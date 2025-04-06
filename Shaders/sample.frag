@@ -10,8 +10,11 @@ uniform sampler2D tex0;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform sampler2D tex3;
+uniform sampler2D tex4;
+uniform sampler2D tex5;
 
-uniform int textureNumber;
+uniformsampler2D norm_tex;
+uniform int textureNumber;  
 
 // Lights
 
@@ -30,8 +33,19 @@ uniform float specPhong;
 out vec4 FragColor;
 
 void main(){
-    vec3 normal = normalize(normCoord);
+
+    vec3 normal;
+
+    switch(texturenumber){
+        case 0:
+        case 1:
+        case 2:
+        case 3:  normal = normalize(normCoord); break;
+        case 4:
+        case 5:  normal = texture(norm_tex, texCoord).rgb; normal = normalize(normal * 2.0 - 1.0);
+    }
     vec3 ambientCol = ambientColor * ambientStr;
+
 
     vec3 finalDiffuse = vec3(0.0);
     vec3 finalSpecular = vec3(0.0);

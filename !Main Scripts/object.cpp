@@ -58,6 +58,8 @@ Object::Object(const std::string& objPath, const std::string& texturePath, int t
         case 1: glActiveTexture(GL_TEXTURE1); break;
         case 2: glActiveTexture(GL_TEXTURE2); break;
         case 3: glActiveTexture(GL_TEXTURE3); break;
+        case 4: glActiveTexture(GL_TEXTURE4); break;
+        case 5: glActiveTexture(GL_TEXTURE5); break;
     }
 
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -220,6 +222,21 @@ void Object::Render(unsigned int shaderProgram, int textureNumber, int transform
         GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex3");
         glUniform1i(tex0Address, 3);
         glUniform1i(selectTex, 3);
+    }
+    else if (textureNumber == 4){
+        glActiveTexture(GL_TEXTURE4);
+        GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex4");
+        glBindTexture(GL_TEXTURE_2D, 4);
+        glUniform1i(tex0Address, 4);
+
+        glActiveTexture(GL_TEXTURE5);
+        GLuint tex1Address = glGetUniformLocation(shaderProgram, "tex5");
+        glBindTexture(GL_TEXTURE_2D, 5);
+        glUniform1i(tex1Address, 5);
+
+    }
+    else if (textureNumber == 5){
+
     }
 
     glDrawArrays(GL_TRIANGLES, 0, fullVertexData.size()/8);
