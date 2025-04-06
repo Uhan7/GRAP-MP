@@ -102,7 +102,8 @@ int main()
     Timer* timer = new Timer();
     Gaming Program = Gaming(timer);
 
-    Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
+    Light light(glm::vec3(0, 10, -5), glm::vec3(11, 0, 0), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
+    Light light2(glm::vec3(0, 10, -5), glm::vec3(0, 11, 0), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
     Skybox skybox(0);
 
     while(!glfwWindowShouldClose(window))
@@ -117,7 +118,12 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Lighting Stuff
-        light.Render(Program.getShaderProg(), Program.getActiveCamera());
+        light.Update();
+        light2.Update();
+        light.Translate('R', 0.1f);
+        light2.Translate('L', 0.1f);
+        light.Render(Program.getShaderProg(), Program.getActiveCamera(), 1);
+        light2.Render(Program.getShaderProg(), Program.getActiveCamera(), 0);
 
         // Game update
         Program.Update(timer);
