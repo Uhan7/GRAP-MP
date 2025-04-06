@@ -67,6 +67,7 @@ public:
     glm::vec3 GetPosition();
     glm::vec3 GetScale();
     glm::vec3 GetRotation();
+    glm::vec3 GetForward();
     std::vector<GLfloat> GetFullVertexData();
     glm::vec3 GetObjectTranslationVector();
 
