@@ -120,7 +120,7 @@ int main()
         // Lighting Stuff
         light.Render(Program.getShaderProg(), Program.getActiveCamera());
 
-        Program.Update(timer);
+        Program.Update(timer, Program.getShaderProg());
 
         glfwPollEvents();
         glfwSwapBuffers(window);

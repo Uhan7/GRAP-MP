@@ -53,7 +53,9 @@ void Gaming::InitiateObjects(){
 
 }
 
-void Gaming::Update(Timer* timer){
+void Gaming::Update(Timer* timer, unsigned int shader){
+    glUseProgram(shader);
+
     thirdPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 120, playerCarPointer->GetPosition().z + 90});
     firstPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 30, playerCarPointer->GetPosition().z});
 
