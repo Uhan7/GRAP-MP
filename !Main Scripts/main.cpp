@@ -102,9 +102,12 @@ int main()
     Timer* timer = new Timer();
     Gaming Program = Gaming(timer);
 
+    Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
+    Skybox skybox(0);
+
     while(!glfwWindowShouldClose(window))
     {   
-        // Inputs, create a Game State for it
+        // Inputs
         HandleInputs(window);
         // KeyHeldProcesses(currentGameStatePointer);
         KeyHeldProcesses(&Program);
@@ -112,9 +115,9 @@ int main()
 
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        skybox.Render(Program.getSkyboxProg(), Program.getActiveCamera());
 
         // Lighting Stuff
-        Light light(glm::vec3(0, 10, -5), glm::vec3(1, 1, 1), 0.8f, glm::vec3(1, 1, 1), 1.f, 1.0f);
         light.Render(Program.getShaderProg(), Program.getActiveCamera());
 
         Program.Update(timer);

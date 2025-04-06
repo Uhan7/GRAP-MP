@@ -24,6 +24,7 @@
 #include "Camera Scripts/perspective_camera.cpp"
 #include "Camera Scripts/orthographic_camera.cpp"
 #include "light.cpp"
+#include "skybox.cpp"
 
 #include "Helper Scripts/input_helper.h"
 #include "Helper Scripts/debug_help.h"
