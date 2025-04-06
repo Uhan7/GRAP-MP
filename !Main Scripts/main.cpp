@@ -115,12 +115,13 @@ int main()
 
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        skybox.Render(Program.getSkyboxProg(), Program.getActiveCamera());
 
         // Lighting Stuff
         light.Render(Program.getShaderProg(), Program.getActiveCamera());
 
-        Program.Update(timer, Program.getShaderProg());
+        Program.Update(timer);
+        skybox.Render(Program.getSkyboxProg(), Program.getActiveCamera());
+        Program.Update(timer);
 
         glfwPollEvents();
         glfwSwapBuffers(window);

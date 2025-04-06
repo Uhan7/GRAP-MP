@@ -22,6 +22,8 @@ private:
     unsigned int VAO;
     std::vector<GLfloat> fullVertexData;
 
+    unsigned int texture;
+
     float objectTranslateSpeed = 0.3f;
     float objectScaleSpeed = 1.1f;
     float objectRotateSpeed = glm::radians(1.5f);
