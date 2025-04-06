@@ -66,15 +66,16 @@ void Gaming::Update(Timer* timer){
     fastCarPointer->Update(shaderProgram, "transform1", 1);
     slowCarPointer->Update(shaderProgram, "transform2", 2);
 
+    fastCarPointer->MoveForward(3.5);
+    slowCarPointer->MoveForward(1.25);
+    
+    runRace(timer);
+}
+
+void Gaming::Render(){
     if (activeCameraPointer == thirdPersonCameraPointer) playerCarPointer->Render(shaderProgram, 0, 0);
     fastCarPointer->Render(shaderProgram, 1, 1);
     slowCarPointer->Render(shaderProgram, 2, 2);
-
-    fastCarPointer->MoveForward(3.5);
-    slowCarPointer->MoveForward(1.25);
-
-    runRace(timer);
-
 }
 
 

@@ -119,9 +119,12 @@ int main()
         // Lighting Stuff
         light.Render(Program.getShaderProg(), Program.getActiveCamera());
 
+        // Game update
         Program.Update(timer);
+
+        //Render
         skybox.Render(Program.getSkyboxProg(), Program.getActiveCamera());
-        Program.Update(timer);
+        Program.Render();
 
         glfwPollEvents();
         glfwSwapBuffers(window);

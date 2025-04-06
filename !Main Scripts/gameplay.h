@@ -69,6 +69,7 @@ class Gaming{
         /// RENDERING FUNCTIONS
         void InitiateObjects();
         void Update(Timer* timer);
+        void Render();
 
         /// GAME LOOP FUNCTIONS
         bool stillRacing();
