@@ -58,6 +58,8 @@ Gaming::Gaming(Timer* timer){
     this->slowCarLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.15f, glm::vec3(1, 1, 1), 1.5f, 5.0f);
 
     this->startingSpotLightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), 0.6f, glm::vec3(1, 1, 1), 1.f, 2.0f);
+    startingSpotLightPointer->SetPosition(glm::vec3(0, 0, -50));
+    startingSpotLightPointer->SetRotation(glm::vec3(0, 0, 180));
 
     // Set Up Skybox
     this->skyboxPointer = new Skybox(0);
@@ -104,19 +106,28 @@ void Gaming::Update(Timer* timer){
     // After rendering skybox, enable depth writing again for cars
     glDepthMask(GL_TRUE);  // Enable depth mask for subsequent rendering
 
+    // Object Updates
+    {
     activeCameraPointer->Update(shaderProgram, SCR_WIDTH, SCR_HEIGHT);
     playerCarPointer->Update(shaderProgram, "transform0", 0);
     fastCarPointer->Update(shaderProgram, "transform1", 1);
     slowCarPointer->Update(shaderProgram, "transform2", 2);
     grassPlanePointer->Update(shaderProgram, "transform3", 3);
+    }
 
+    // Timer events
+    {
     if (timeIsRunning && timer->getTime() >= 3) this->playerCarPointer->SetSpeed(2.75f);
     if (timeIsRunning && timer->getTime() >= 3) fastCarPointer->MoveForward(3.5); // 3.5
     if (timeIsRunning && timer->getTime() >= 3) slowCarPointer->MoveForward(1.2); // 1.2
 
-    startingSpotLightPointer->PositionFromCar(slowCarPointer, glm::vec3(80.f, 80, 0.f));
-    startingSpotLightPointer->SetRotation(glm::vec3(0, 0, 180));
     startingSpotLightPointer->Update();
+
+    if (timer->getTime() >= 1) startingSpotLightPointer->SetColor(glm::vec3(10.f, .0f, 0));
+    if (timer->getTime() >= 2) startingSpotLightPointer->SetColor(glm::vec3(7.f, 7.f, 0));
+    if (timer->getTime() >= 3) startingSpotLightPointer->SetColor(glm::vec3(0.0f, 10.f, 0));
+    if (timer->getTime() >= 4) startingSpotLightPointer->SetColor(glm::vec3(0.0f, 0.f, 0));
+    }
 
     // Only make the special lighting stuff at night to save computation
     if (!timeIsDay){
@@ -167,28 +178,28 @@ void Gaming::runRace(Timer* timer){
     if(playerCarPointer->GetPosition().z <= -1000 && Player_Cross == false){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "PLAYER crossed the finish line at " << duration.count() << " seconds!" << endl;
+        cout << "PLAYER crossed the finish line at " << duration.count()-3 << " seconds!" << endl;
         Player_Cross = true;
     }
 
     if(fastCarPointer->GetPosition().z <= -1000 && Fast_Cross == false){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "FAST CAR crossed the finish line at " << duration.count() << " seconds!" << endl;
+        cout << "FAST CAR crossed the finish line at " << duration.count()-3 << " seconds!" << endl;
         Fast_Cross = true;
     }
 
     if(slowCarPointer->GetPosition().z <= -1000 && Slow_Cross == false){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "SLOW CAR crossed the finish line at " << duration.count() << " seconds!" << endl;
+        cout << "SLOW CAR crossed the finish line at " << duration.count()-3 << " seconds!" << endl;
         Slow_Cross = true;
     }
 
     if (Player_Cross && Fast_Cross && Slow_Cross && !All_Cross){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "ALL CARS crossed the finish line at " << duration.count() << " seconds!" << endl;
+        cout << "\n\n\n----\nFINISH!\n----ALL CARS crossed the finish line at " << duration.count()-3 << " seconds!" << endl;
         All_Cross = true;
     }
 

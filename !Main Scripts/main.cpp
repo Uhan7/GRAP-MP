@@ -43,7 +43,7 @@ void KeyHeldProcesses(Gaming* program){
         if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(1, 1, 1));
     }
     if (S_Held){
-        program->getPlayer()->MoveForward();
+        program->getPlayer()->MoveBackward();
         if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(1, 0, 0));
         if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(1, 0, 0));
     } else{

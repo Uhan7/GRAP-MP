@@ -215,6 +215,10 @@ void Object::MoveForward(){
     objectTranslationVector += forward * objectTranslateSpeed;
 }
 
+void Object::MoveBackward(){
+    objectTranslationVector -= forward * objectTranslateSpeed;
+}
+
 void Object::MoveForward(float moveSpeed){
     objectTranslationVector += forward * moveSpeed;
 }
