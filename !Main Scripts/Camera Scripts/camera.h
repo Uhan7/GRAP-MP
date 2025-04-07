@@ -30,7 +30,7 @@ public:
     void SetRotation(glm::vec3 newRotationVector);
     
     void MovePosition(char inputDirection);
-    void Rotate(char inputDirection);
+    void Rotate(char inputDirection, float dx, float dy);
     virtual void Update(unsigned int shaderProgram, int screenWidth, int screenHeight) = 0;
 
     glm::vec3 GetCameraPosition();
