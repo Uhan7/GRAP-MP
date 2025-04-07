@@ -15,7 +15,8 @@ bool D_Held, A_Held, W_Held, S_Held, LEFT_SHIFT_Held,
     F_Held, H_Held, T_Held, G_Held,
     TAB_Held,
     Q_Pressed, E_Pressed, Q_CanPress=true, E_CanPress=true,
-    SPACE_Pressed = false, SPACE_CanPress = true;
+    SPACE_Pressed = false, SPACE_CanPress = true,
+    Z_Pressed = false, Z_CanPress = true;
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (key == GLFW_KEY_D) D_Held = (action != GLFW_RELEASE);
@@ -39,6 +40,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     } else if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE){
         SPACE_Pressed = false;
         SPACE_CanPress = true;
+    }
+    if (key == GLFW_KEY_Z && action == GLFW_PRESS){
+        Z_Pressed = true;
+    } else if (key == GLFW_KEY_Z && action == GLFW_RELEASE){
+        Z_Pressed = false;
+        Z_CanPress = true;
     }
     if (key == GLFW_KEY_LEFT_SHIFT) LEFT_SHIFT_Held = (action != GLFW_RELEASE);
     if (key == GLFW_KEY_MINUS) MINUS_Held = (action != GLFW_RELEASE);

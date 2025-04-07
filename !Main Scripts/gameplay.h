@@ -74,6 +74,8 @@ class Gaming{
         PerspectiveCamera* getFirstPersonCamera();
         Camera* getActiveCamera();
         void setActiveCamera(PerspectiveCamera* view);
+        void ToggleCamera();
+
         Object* getPlayer();
         Object* getFastCar();
         Object* getSlowCar();

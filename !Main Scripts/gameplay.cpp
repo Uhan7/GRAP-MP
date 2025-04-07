@@ -58,6 +58,17 @@ void Gaming::setActiveCamera(PerspectiveCamera* view){
     activeCameraPointer = view;
 }
 
+void Gaming::ToggleCamera(){
+    if (activeCameraPointer == firstPersonCameraPointer){
+        setThirdPerson(true);
+        activeCameraPointer = thirdPersonCameraPointer;
+    }
+    else{
+        setThirdPerson(false);
+        activeCameraPointer = firstPersonCameraPointer;
+    }
+}
+
 Object* Gaming::getPlayer(){return playerCarPointer;}
 Object* Gaming::getFastCar(){return fastCarPointer;}
 Object* Gaming::getSlowCar(){return slowCarPointer;}

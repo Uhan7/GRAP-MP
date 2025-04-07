@@ -70,18 +70,10 @@ void KeyHeldProcesses(Gaming* program){
         program->ToggleTime();
         SPACE_CanPress = false;
     }
-    // if (UP_Held) fastCarPointer->MoveForward(3);
-    // if (DOWN_Held) fastCarPointer->MoveForward(-3);
-    // if (LEFT_Held) fastCarPointer->Rotate('-', 'Y');
-    // if (RIGHT_Held) fastCarPointer->Rotate('+', 'Y');
-    if (TAB_Held)
-    {
-        program->setActiveCamera(program->getFirstPersonCamera());
-        program->setThirdPerson(false);
-    } else{
-        program->setActiveCamera(program->getThirdPersonCamera()); 
-        program->setThirdPerson(true);
-    } 
+    if (Z_Pressed && Z_CanPress){
+        program->ToggleCamera();
+        Z_CanPress = false;
+    }
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
