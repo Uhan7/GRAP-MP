@@ -38,3 +38,11 @@ void Timer::Stop(){
     ending = steady_clock::now();
     auto duration = duration_cast<seconds>(ending - start);
 }
+
+float Timer::getTime(){
+    ending = steady_clock::now();
+    auto duration = duration_cast<seconds>(ending - start);
+
+
+    return static_cast<float>(duration.count());
+}

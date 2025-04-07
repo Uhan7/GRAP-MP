@@ -27,4 +27,5 @@ class Timer{
         bool getActive(int index);
         void toggleActive(int index);
         void Stop();
+        float getTime();
 };
