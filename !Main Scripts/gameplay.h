@@ -47,6 +47,8 @@ class Gaming{
         Object* slowCarPointer = nullptr;
 
         Object* grassPlanePointer = nullptr;
+        Object* landmark1Pointer = nullptr;
+        Object* landmark2Pointer = nullptr;
 
         Light* directionalLightPointer = nullptr;
 

@@ -84,7 +84,7 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
 
     if (thirdperson == true) { /// TRUE when in third person view.
 
-        std::cout << "I AM HERE, I SHOULD BE ON THIRD PERSON VIEW" << std::endl;
+        // std::cout << "I AM HERE, I SHOULD BE ON THIRD PERSON VIEW" << std::endl;
 
 
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) { /// TRUE when left click is held
@@ -95,7 +95,7 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
             dx = Curr_Pos_x - Camera->GetMouse_XPos();
             dy = Curr_Pos_y - Camera->GetMouse_YPos();
 
-            std::cout << "I SHOULD BE CLICKING ON LEFT CLICK!" << std::endl;
+            // std::cout << "I SHOULD BE CLICKING ON LEFT CLICK!" << std::endl;
 
             if (dx > 0) { //TRUE when the Mouse is moved to the left
                 Camera->Rotate('R',dx,dy);

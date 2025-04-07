@@ -51,7 +51,6 @@ Object::Object(const std::string& objPath, const std::string& texturePath, int t
     unsigned char* tex_bytes = stbi_load(texturePath.c_str(), &img_width, &img_height, &colorChannels, 0);
 
     GLuint texture;
-    GLuint norm_tex;
 
     glGenTextures(1, &texture);
 
@@ -72,44 +71,7 @@ Object::Object(const std::string& objPath, const std::string& texturePath, int t
     glGenerateMipmap(GL_TEXTURE_2D);
     stbi_image_free(tex_bytes);
 
-
-    int img_width2, img_height2, colorChannel2;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char* normal_bytes; 
-    switch(textureNumber)
-    {
-        
-        case 4: 
-            {
-                normal_bytes = stbi_load("INSERT FILENAME FOR NORMAL HERE", &img_width, &img_height, &colorChannels, 0);
-                glGenTextures(2, &norm_tex);
-                glActiveTexture(GL_TEXTURE6);
-                glBindTexture(GL_TEXTURE_2D, norm_tex);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-                glTexImage2D(GL_TEXTURE_2D, 0 ,GL_RGB, img_width2, img_height2, 0, GL_RGB, GL_UNSIGNED_BYTE, normal_bytes);
-                glGenerateMipmap(GL_TEXTURE_2D);
-                stbi_image_free(normal_bytes);
-
-            }
-            break;
-        case 5:
-            {
-                normal_bytes = stbi_load("INSERT FILENAME FOR NORMAL HERE", &img_width, &img_height, &colorChannels, 0);
-                glGenTextures(2, &norm_tex);
-                glActiveTexture(GL_TEXTURE7);
-                glBindTexture(GL_TEXTURE_2D, norm_tex);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-                glTexImage2D(GL_TEXTURE_2D, 0 ,GL_RGB, img_width2, img_height2, 0, GL_RGB, GL_UNSIGNED_BYTE, normal_bytes);
-                glGenerateMipmap(GL_TEXTURE_2D);
-                stbi_image_free(normal_bytes);
-
-            }
-    }
-
 
     glEnable(GL_DEPTH_TEST);
 
@@ -275,25 +237,17 @@ void Object::Render(unsigned int shaderProgram, int textureNumber, int transform
     else if (textureNumber == 4){
         glActiveTexture(GL_TEXTURE4);
         GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex4");
-        glBindTexture(GL_TEXTURE_2D, 4);
         glUniform1i(tex0Address, 4);
-
-        glActiveTexture(GL_TEXTURE6);
-        GLuint tex1Address = glGetUniformLocation(shaderProgram, "norm_tex");
-        glBindTexture(GL_TEXTURE_2D, 4);
-        glUniform1i(tex1Address, 5);
-
+        glUniform1i(selectTex, 4);
     }
     else if (textureNumber == 5){
         glActiveTexture(GL_TEXTURE5);
         GLuint tex0Address = glGetUniformLocation(shaderProgram, "tex5");
-        glBindTexture(GL_TEXTURE_2D, 4);
-        glUniform1i(tex0Address, 4);
-
-        glActiveTexture(GL_TEXTURE7);
-        GLuint tex1Address = glGetUniformLocation(shaderProgram, "norm_tex");
-        glBindTexture(GL_TEXTURE_2D, 5);
-        glUniform1i(tex1Address, 5);
+        glUniform1i(tex0Address, 5);
+        glUniform1i(selectTex, 5);
+    }
+    else{
+        std::cout << "texture number error" << std::endl;
     }
 
     glDrawArrays(GL_TRIANGLES, 0, fullVertexData.size()/8);

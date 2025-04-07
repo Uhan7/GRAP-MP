@@ -8,6 +8,8 @@ uniform mat4 transform0;
 uniform mat4 transform1;
 uniform mat4 transform2;
 uniform mat4 transform3;
+uniform mat4 transform4;
+uniform mat4 transform5;
 
 uniform int transformNumber;
 
@@ -25,6 +27,8 @@ void main() {
         case 1: finalTransform = transform1; break;
         case 2: finalTransform = transform2; break;
         case 3: finalTransform = transform3; break;
+        case 4: finalTransform = transform4; break;
+        case 5: finalTransform = transform5; break;
     }
 
     gl_Position = projection * view * finalTransform * vec4(aPos, 1.0);

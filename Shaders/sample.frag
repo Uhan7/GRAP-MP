@@ -47,7 +47,7 @@ void main(){
         case 2:
         case 3:  
         case 4: normal = normalize(normCoord); break;
-        case 5:  normal = texture(norm_tex, texCoord).rgb; normal = normalize(normal * 2.0 - 1.0);
+        case 5:  normal = texture(norm_tex, texCoord).rgb; normal = normalize(normal * 2.0 - 1.0); break;
     }
     vec3 ambientCol = ambientColor * ambientStr;
 
@@ -96,6 +96,8 @@ void main(){
         case 1: FragColor = vec4(lightingResult, 1.0) * texture(tex1, texCoord); FragColor.a = 0.5f; break;
         case 2: FragColor = vec4(lightingResult, 1.0) * texture(tex2, texCoord); FragColor.a = 0.5f; break;
         case 3: FragColor = vec4(lightingResult, 1.0) * texture(tex3, texCoord); break;
+        case 4: FragColor = vec4(lightingResult, 1.0) * texture(tex4, texCoord); break;
+        case 5: FragColor = vec4(lightingResult, 1.0) * texture(tex5, texCoord); break;
         default: FragColor = vec4(lightingResult, 1.0); break;
     }
 }
