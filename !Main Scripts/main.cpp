@@ -37,40 +37,40 @@
 // }
 
 void KeyHeldProcesses(Gaming* program){
-    if (W_Held){
+    if (W_Held){ // Move player forward + change lights
         program->getPlayer()->MoveForward();
         if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(1, 1, 1));
         if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(1, 1, 1));
     }
-    if (S_Held){
+    else if (S_Held){ // Move player backwards + change lights
         program->getPlayer()->MoveBackward();
         if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(1, 0, 0));
         if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(1, 0, 0));
-    } else{
+    } else{ // Set lights to normal
         if (!program->GetTimeIsDay() && !W_Held) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(.5f, .5f, .5f));
         if (!program->GetTimeIsDay() && !W_Held) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(.5f, .5f, .5f));
     }
-    if (A_Held){
+    if (A_Held){ // Rotate player to the left
         program->getPlayer()->Rotate('-', 'Y');
         program->getFirstPersonCamera()->Rotate('L',0,0);
     }
-    if (D_Held){
+    if (D_Held){ // Rotate player to the right
         program->getPlayer()->Rotate('+', 'Y');
         program->getFirstPersonCamera()->Rotate('R',0,0);
     }
-    if (Q_Pressed && Q_CanPress){
+    if (Q_Pressed && Q_CanPress){ // toggle to daytime
         program->SetToDay(true);
         Q_CanPress = false;
     }
-    if (E_Pressed && E_CanPress){
+    if (E_Pressed && E_CanPress){// toggle to nighttime
         program->SetToDay(false);
         E_CanPress = false;
     }
-    if (SPACE_Pressed && SPACE_CanPress){
+    if (SPACE_Pressed && SPACE_CanPress){ // toggle pausing
         program->ToggleTime();
         SPACE_CanPress = false;
     }
-    if (Z_Pressed && Z_CanPress){
+    if (Z_Pressed && Z_CanPress){ // toggle cameras
         program->ToggleCamera();
         Z_CanPress = false;
     }
@@ -84,8 +84,6 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
 
     if (thirdperson == true) { /// TRUE when in third person view.
 
-        // std::cout << "I AM HERE, I SHOULD BE ON THIRD PERSON VIEW" << std::endl;
-
 
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) { /// TRUE when left click is held
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -94,8 +92,6 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
 
             dx = Curr_Pos_x - Camera->GetMouse_XPos();
             dy = Curr_Pos_y - Camera->GetMouse_YPos();
-
-            // std::cout << "I SHOULD BE CLICKING ON LEFT CLICK!" << std::endl;
 
             if (dx > 0) { //TRUE when the Mouse is moved to the left
                 Camera->Rotate('R',dx,dy);
@@ -139,10 +135,10 @@ int main()
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Game update
+        // Game updating
         Program.Update(timer);
 
-        //Render
+        //Rendering
         Program.Render();
 
         glfwPollEvents();
