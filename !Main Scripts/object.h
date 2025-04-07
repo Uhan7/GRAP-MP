@@ -56,6 +56,8 @@ public:
     void Rotate(char polarity, char axis);
 
     void MoveForward();
+    void MoveBackward();
+
     void MoveForward(float moveSpeed);
 
     void Update(unsigned int shaderProgram, const GLchar* transformName, int transformNumber);
