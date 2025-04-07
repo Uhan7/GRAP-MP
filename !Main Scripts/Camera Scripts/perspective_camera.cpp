@@ -25,6 +25,7 @@ void PerspectiveCamera::Update(unsigned int shaderProgram, int screenWidth, int 
         0.0f, 0.0f, 0.0f, 1.0f
     );
 
+
     viewMatrix = glm::lookAt(cameraPosition, Center, WorldUp);
     projectionMatrix = glm::perspective(glm::radians(90.f), static_cast<float>(screenWidth) / static_cast<float>(screenHeight), 0.1f, 2000.f);
 

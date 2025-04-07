@@ -40,23 +40,21 @@ void Camera::MovePosition(char inputDirection){
 }
 
 void Camera::Rotate(char inputDirection, float dx, float dy){
-    switch (inputDirection){
+    switch (inputDirection) {
         case 'L': yaw -= cameraOrientationSpeed; break;
         case 'R': yaw += cameraOrientationSpeed; break;
         case 'D': pitch = glm::clamp(pitch - cameraOrientationSpeed, -89.9f, 89.9f); break;
         case 'U': pitch = glm::clamp(pitch + cameraOrientationSpeed, -89.9f, 89.9f); break;
 
-        case 'Y': pitch = glm::clamp(pitch - (dy * 0.01f), -89.9f, 89.9f); break;
-        case 'H': pitch = glm::clamp(pitch + (dy * 0.01f), -89.9f, 89.9f); break;
-        case 'G': yaw -= dx * 0.01f; break;
-        case 'J': yaw += dx * 0.01f; break;
+        case 'Y': pitch = glm::clamp(pitch - (dy * 0.1f), -89.9f, 89.9f); break;
+        case 'H': pitch = glm::clamp(pitch + (dy * 0.1f), -89.9f, 89.9f); break;
+        case 'G': yaw -= dx * 0.1f; break;
+        case 'J': yaw += dx * 0.1f; break;
 
         default: std::cout << inputDirection << " is not a valid Camera Rotation inputDirection." << std::endl; break;
-
     }
 
-    if(inputDirection == 'Y' || inputDirection == 'H' || inputDirection == 'G' || inputDirection == 'J'){
-
+    if (inputDirection == 'Y' || inputDirection == 'H' || inputDirection == 'G' || inputDirection == 'J') {
         glm::vec3 origin = cameraPosition + direction;
 
         direction = glm::normalize(glm::vec3(
@@ -64,10 +62,9 @@ void Camera::Rotate(char inputDirection, float dx, float dy){
             sin(glm::radians(pitch)),
             sin(glm::radians(yaw)) * cos(glm::radians(pitch))
         ));
-    
+
         cameraPosition = origin - direction;
     }
-
 }
 
 glm::vec3 Camera::GetCameraPosition(){
