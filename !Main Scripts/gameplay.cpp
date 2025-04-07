@@ -150,28 +150,28 @@ void Gaming::runRace(Timer* timer){
     if(playerCarPointer->GetPosition().z <= -1000 && Player_Cross == false){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "PLAYER crossed the finish line at " << duration.count() << "seconds!" << endl;
+        cout << "PLAYER crossed the finish line at " << duration.count() << " seconds!" << endl;
         Player_Cross = true;
     }
 
     if(fastCarPointer->GetPosition().z <= -1000 && Fast_Cross == false){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "FAST CAR crossed the finish line at " << duration.count() << "seconds!" << endl;
+        cout << "FAST CAR crossed the finish line at " << duration.count() << " seconds!" << endl;
         Fast_Cross = true;
     }
 
     if(slowCarPointer->GetPosition().z <= -1000 && Slow_Cross == false){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "SLOW CAR crossed the finish line at " << duration.count() << "seconds!" << endl;
+        cout << "SLOW CAR crossed the finish line at " << duration.count() << " seconds!" << endl;
         Slow_Cross = true;
     }
 
     if (Player_Cross && Fast_Cross && Slow_Cross && !All_Cross){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "ALL CARS crossed the finish line at " << duration.count() << "seconds!" << endl;
+        cout << "ALL CARS crossed the finish line at " << duration.count() << " seconds!" << endl;
         All_Cross = true;
     }
 
@@ -191,9 +191,7 @@ bool Gaming::stillRacing(){
 }
 
 void Gaming::ToggleTime(){
-    // Hi johann can you stop the timer here as well if false
     timeIsRunning = !timeIsRunning;
-    std::cout << "time stopped" << std::endl;
 }
 
 void Gaming::setThirdPerson(bool val){
