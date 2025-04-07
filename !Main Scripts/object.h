@@ -61,6 +61,8 @@ public:
     void Update(unsigned int shaderProgram, const GLchar* transformName, int transformNumber);
     void Render(unsigned int shaderProgram, int textureNumber, int transformNumber);
 
+    void SetSpeed(float newSpeed);
+
     // Getters
     glm::vec3 GetPosition();
     glm::vec3 GetScale();

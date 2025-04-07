@@ -314,3 +314,7 @@ std::vector<GLfloat> Object::GetFullVertexData(){
 glm::vec3 Object::GetObjectTranslationVector(){
     return objectTranslationVector;
 }
+
+void Object::SetSpeed(float newSpeed){
+    objectTranslateSpeed = newSpeed;
+}

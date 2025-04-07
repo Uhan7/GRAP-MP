@@ -5,6 +5,8 @@ Gaming::Gaming(Timer* timer){
     this->game_running = true;
     timer->Start();
 
+    timeIsRunning = true;
+
     /// Setup Camera Pointers
     PerspectiveCamera* ThirdPersonCamera = new PerspectiveCamera(glm::vec3(0, 85, 50), 0, -30);
     PerspectiveCamera* FirstPersonCamera = new PerspectiveCamera(glm::vec3(0, 30, 0), 0, 0);
@@ -20,6 +22,7 @@ Gaming::Gaming(Timer* timer){
     this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
     this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
+    this->playerCarPointer->SetSpeed(0);
 
     // Fast F1 Car
     this->fastCarPointer = new Object("Models and Textures/Car OBJs/f1.obj", "Models and Textures/Car Textures/f1_specular.png", 1, "RGB", .3f);
@@ -107,8 +110,9 @@ void Gaming::Update(Timer* timer){
     slowCarPointer->Update(shaderProgram, "transform2", 2);
     grassPlanePointer->Update(shaderProgram, "transform3", 3);
 
-    if (timeIsRunning) fastCarPointer->MoveForward(3.5); // 3.5
-    if (timeIsRunning) slowCarPointer->MoveForward(1.2); // 1.2
+    if (timeIsRunning && timer->getTime() >= 3) this->playerCarPointer->SetSpeed(2.75f);
+    if (timeIsRunning && timer->getTime() >= 3) fastCarPointer->MoveForward(3.5); // 3.5
+    if (timeIsRunning && timer->getTime() >= 3) slowCarPointer->MoveForward(1.2); // 1.2
 
     startingSpotLightPointer->PositionFromCar(slowCarPointer, glm::vec3(80.f, 80, 0.f));
     startingSpotLightPointer->SetRotation(glm::vec3(0, 0, 180));
