@@ -54,6 +54,8 @@ Gaming::Gaming(Timer* timer){
     this->slowCarLightLeftPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.15f, glm::vec3(1, 1, 1), 1.5f, 5.0f);
     this->slowCarLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.15f, glm::vec3(1, 1, 1), 1.5f, 5.0f);
 
+    this->startingSpotLightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), 0.6f, glm::vec3(1, 1, 1), 1.f, 2.0f);
+
     // Set Up Skybox
     this->skyboxPointer = new Skybox(0);
 
@@ -108,6 +110,10 @@ void Gaming::Update(Timer* timer){
     if (timeIsRunning) fastCarPointer->MoveForward(3.5); // 3.5
     if (timeIsRunning) slowCarPointer->MoveForward(1.2); // 1.2
 
+    startingSpotLightPointer->PositionFromCar(slowCarPointer, glm::vec3(80.f, 80, 0.f));
+    startingSpotLightPointer->SetRotation(glm::vec3(0, 0, 180));
+    startingSpotLightPointer->Update();
+
     // Only make the special lighting stuff at night to save computation
     if (!timeIsDay){
         playerLightLeftPointer->PositionFromCar(playerCarPointer, glm::vec3(-15.f, 18, 65.f));
@@ -147,6 +153,8 @@ void Gaming::Render(){
         slowCarLightLeftPointer->Render(getShaderProg(), getActiveCamera(), 5);
         slowCarLightRightPointer->Render(getShaderProg(), getActiveCamera(), 6);
     }
+
+    startingSpotLightPointer->Render(getShaderProg(), getActiveCamera(), 7);
 }
 
 

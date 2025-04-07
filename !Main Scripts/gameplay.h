@@ -56,6 +56,8 @@ class Gaming{
         Light* fastCarLightRightPointer = nullptr;
         Light* slowCarLightLeftPointer = nullptr;
         Light* slowCarLightRightPointer = nullptr;
+        
+        Light* startingSpotLightPointer = nullptr;
 
         Skybox* skyboxPointer = nullptr;
 

@@ -18,7 +18,7 @@ uniform int textureNumber;
 
 // Lights
 
-#define LIGHTS 7
+#define LIGHTS 8
 
 uniform vec3 lightPos[LIGHTS];
 uniform vec3 lightColor[LIGHTS];
