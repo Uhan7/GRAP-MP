@@ -80,7 +80,10 @@ void KeyHeldProcesses(Gaming* program){
     {
         program->setActiveCamera(program->getFirstPersonCamera());
         program->setThirdPerson(false);
-    } else program->setActiveCamera(program->getThirdPersonCamera()); program->setThirdPerson(true);
+    } else{
+        program->setActiveCamera(program->getThirdPersonCamera()); 
+        program->setThirdPerson(true);
+    } 
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
@@ -89,13 +92,18 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
     double Curr_Pos_x, Curr_Pos_y;
     double dx, dy;
 
-    if (thirdperson == true) { /// TRUE when in ortographic_view.
+    if (thirdperson == true) { /// TRUE when in third person view.
+
+        std::cout << "I AM HERE, I SHOULD BE ON THIRD PERSON VIEW" << std::endl;
+
 
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) { /// TRUE when left click is held
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
             dx = Curr_Pos_x - Camera->GetMouse_XPos();
             dy = Curr_Pos_y - Camera->GetMouse_YPos();
+
+            std::cout << "I SHOULD BE CLICKING ON LEFT CLICK!" << std::endl;
 
             glfwGetCursorPos(window, &Curr_Pos_x, &Curr_Pos_y);
             if (dx > 0) { //TRUE when the Mouse is moved to the left
@@ -114,8 +122,8 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
         else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE) { /// TRUE when left click is released
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
-
         Camera->UpdateMousePos(Curr_Pos_x, Curr_Pos_y);
+
     }
 }
 
