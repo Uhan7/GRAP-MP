@@ -52,11 +52,11 @@ void KeyHeldProcesses(Gaming* program){
     }
     if (A_Held){
         program->getPlayer()->Rotate('-', 'Y');
-        program->getFirstPersonCamera()->Rotate('L');
+        program->getFirstPersonCamera()->Rotate('L',0,0);
     }
     if (D_Held){
         program->getPlayer()->Rotate('+', 'Y');
-        program->getFirstPersonCamera()->Rotate('R');
+        program->getFirstPersonCamera()->Rotate('R',0,0);
     }
     if (Q_Pressed && Q_CanPress){
         program->SetToDay(true);
@@ -97,15 +97,15 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
 
             glfwGetCursorPos(window, &Curr_Pos_x, &Curr_Pos_y);
             if (dx > 0) { //TRUE when the Mouse is moved to the left
-                Camera->Rotate('J');
+                Camera->Rotate('J',dx,dy);
             } else if (dx < 0) { // TRUE when the Mouse is moved to the right
-                Camera->Rotate('G');
+                Camera->Rotate('G',dx,dy);
             }
             
             if (dy > 0){
-                Camera->Rotate('H');
+                Camera->Rotate('H',dx,dy);
             } else if(dy < 0){
-                Camera->Rotate('Y');
+                Camera->Rotate('Y',dx,dy);
             }
 
         }
