@@ -86,22 +86,27 @@ void KeyHeldProcesses(Gaming* program){
 void MouseProcesses(GLFWwindow* window, bool ortographic_view, Camera* Camera){
 
     double Curr_Pos_x, Curr_Pos_y;
+    double dx, dy;
+
     if (ortographic_view == true) { /// TRUE when in ortographic_view.
 
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) { /// TRUE when left click is held
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
+            dx = Curr_Pos_x - Camera->GetMouse_XPos();
+            dy = Curr_Pos_y - Camera->GetMouse_YPos();
+
             glfwGetCursorPos(window, &Curr_Pos_x, &Curr_Pos_y);
-            if (Camera->GetMouse_XPos() > Curr_Pos_x) { //TRUE when the Mouse is moved to the left
-                Camera->Rotate('L');
-            } else if (Camera->GetMouse_XPos() < Curr_Pos_x) { // TRUE when the Mouse is moved to the right
-                Camera->Rotate('R');
+            if (dx > 0) { //TRUE when the Mouse is moved to the left
+                Camera->Rotate('J');
+            } else if (dx < 0) { // TRUE when the Mouse is moved to the right
+                Camera->Rotate('G');
             }
             
-            if (Camera->GetMouse_YPos() > Curr_Pos_x){
-                Camera->Rotate('U');
+            if (Camera->GetMouse_YPos() > Curr_Pos_y){
+                Camera->Rotate('H');
             } else if(Camera->GetMouse_YPos()> Curr_Pos_y){
-                Camera->Rotate('D');
+                Camera->Rotate('Y');
             }
 
         }

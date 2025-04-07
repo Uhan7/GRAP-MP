@@ -45,8 +45,24 @@ void Camera::Rotate(char inputDirection){
         case 'R': yaw += cameraOrientationSpeed; break;
         case 'D': pitch = glm::clamp(pitch - cameraOrientationSpeed, -89.9f, 89.9f); break;
         case 'U': pitch = glm::clamp(pitch + cameraOrientationSpeed, -89.9f, 89.9f); break;
+
+        case 'Y': pitch = glm::clamp(pitch * 0.1f, -89.9f, 89.9f); break;
+        case 'H': pitch = glm::clamp(pitch * -0.1f, -89.9f, 89.9f); break;
+        case 'G': yaw -= yaw * 0.10f; break;
+        case 'J': yaw += yaw * 0.01f; break;
+
         default: std::cout << inputDirection << " is not a valid Camera Rotation inputDirection." << std::endl; break;
+
     }
+
+    direction = glm::normalize(glm::vec3(
+        cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
+        sin(glm::radians(pitch)),
+        sin(glm::radians(yaw)) * cos(glm::radians(pitch))
+    ));
+
+    cameraPosition = glm::normalize(cameraPosition + direction);
+
 }
 
 glm::vec3 Camera::GetCameraPosition(){
