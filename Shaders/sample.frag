@@ -28,6 +28,9 @@ uniform bool isDirectional[LIGHTS];
 uniform float ambientStr;
 uniform vec3 ambientColor;
 
+// uniform float outerCone;
+// uniform float innerCone;
+
 uniform vec3 cameraPos;
 uniform float specStr;
 uniform float specPhong;
@@ -60,12 +63,19 @@ void main(){
             lightDir = normalize(-lightDirection[i]);
         }
         else{
-            float constant = 0.85;
-            float linear = 0.0025;
-            float quadratic = 0.0015;
-            lightDir = normalize(lightPos[i] - fragPos);
             float distance = length(lightPos[i] - fragPos);
-            attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
+            float constant = 0.85;
+            float linear = 0.002;
+            float quadratic = 0.001;
+            attenuation = 1.0 / (constant + linear * distance + quadratic * distance * distance);
+
+            float outerCone = 0.9f;
+            float innerCone = 0.5f;
+
+            float angle1 = dot(lightDir, normalize(-lightDirection[i]));
+            float angle2 = innerCone - outerCone;
+            float intensity = clamp((angle1 - outerCone) / angle2, 0.0, 1.0);
+            attenuation *= intensity;
         }
 
         float diff = max(dot(normal, lightDir), 0.0);
