@@ -79,16 +79,17 @@ void KeyHeldProcesses(Gaming* program){
     if (TAB_Held)
     {
         program->setActiveCamera(program->getFirstPersonCamera());
-    } else program->setActiveCamera(program->getThirdPersonCamera());
+        program->setThirdPerson(false);
+    } else program->setActiveCamera(program->getThirdPersonCamera()); program->setThirdPerson(true);
 }
 
 /// Mouse Processing with respect to the position of the mouse. 
-void MouseProcesses(GLFWwindow* window, bool ortographic_view, Camera* Camera){
+void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
 
     double Curr_Pos_x, Curr_Pos_y;
     double dx, dy;
 
-    if (ortographic_view == true) { /// TRUE when in ortographic_view.
+    if (thirdperson == true) { /// TRUE when in ortographic_view.
 
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) { /// TRUE when left click is held
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -134,7 +135,7 @@ int main()
         HandleInputs(window);
         // KeyHeldProcesses(currentGameStatePointer);
         KeyHeldProcesses(&Program);
-        MouseProcesses(window, true, Program.getActiveCamera());
+        MouseProcesses(window, Program.getThirdPerson(), Program.getActiveCamera());
 
         // Rendering BG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

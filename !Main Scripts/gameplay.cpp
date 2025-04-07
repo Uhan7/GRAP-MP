@@ -11,6 +11,7 @@ Gaming::Gaming(Timer* timer){
     this->thirdPersonCameraPointer = ThirdPersonCamera;
     this->firstPersonCameraPointer = FirstPersonCamera;
     this->activeCameraPointer = ThirdPersonCamera;
+    this->thirdPerson = true;
 
     /// Setup Object Variables
 
@@ -177,6 +178,14 @@ bool Gaming::stillRacing(){
    }
    return false;
 }
+
+void Gaming::setThirdPerson(bool val){
+    thirdPerson = val;
+}
+
+bool Gaming::getThirdPerson(){return thirdPerson;}
+
+
 
 void Gaming::endRace(Timer* timer){
     timer->Stop();

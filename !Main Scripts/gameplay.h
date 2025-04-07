@@ -61,6 +61,7 @@ class Gaming{
         unsigned int skyboxShaderProgram;
 
         bool timeIsDay = true;
+        bool thirdPerson;
 
     public:
         ///Gaming Constructor
@@ -93,9 +94,12 @@ class Gaming{
 
         /// GAME LOOP FUNCTIONS
         bool stillRacing();
+
+        void setThirdPerson(bool val);
+        bool getThirdPerson();
+
         void runRace(Timer* timer);
         void endRace(Timer* timer);
-
         void SetToDay(bool value);
 
         bool GetTimeIsDay();

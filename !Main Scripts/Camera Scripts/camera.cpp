@@ -57,7 +57,7 @@ void Camera::Rotate(char inputDirection){
 
     if(inputDirection == 'Y' || inputDirection == 'H' || inputDirection == 'G' || inputDirection == 'J'){
 
-        glm::vec3 origin = glm::normalize(cameraPosition) - glm::normalize(direction);
+        glm::vec3 origin = cameraPosition + direction;
 
         direction = glm::normalize(glm::vec3(
             cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
