@@ -98,15 +98,15 @@ void MouseProcesses(GLFWwindow* window, bool thirdperson, Camera* Camera){
             std::cout << "I SHOULD BE CLICKING ON LEFT CLICK!" << std::endl;
 
             if (dx > 0) { //TRUE when the Mouse is moved to the left
-                Camera->Rotate('J',dx,dy);
+                Camera->Rotate('R',dx,dy);
             } else if (dx < 0) { // TRUE when the Mouse is moved to the right
-                Camera->Rotate('G',dx,dy);
+                Camera->Rotate('L',dx,dy);
             }
             
             if (dy > 0){
-                Camera->Rotate('H',dx,dy);
+                Camera->Rotate('D',dx,dy);
             } else if(dy < 0){
-                Camera->Rotate('Y',dx,dy);
+                Camera->Rotate('U',dx,dy);
             }
 
         }
