@@ -97,11 +97,11 @@ void Light::SetRotation(glm::vec3 newRotationEulerAngles){
 
 void Light::PositionFromCar(Object* carPointer, glm::vec3 offset){
     SetPosition(carPointer->GetPosition());
-    SetRotation(carPointer->GetRotation());
     SetForward(carPointer->GetForward());
     MoveSide(offset.x);
     MoveUp(offset.y);
     MoveForward(offset.z);
+    SetRotation(carPointer->GetRotation());
 }
 
 void Light::SetDirectional(bool value){

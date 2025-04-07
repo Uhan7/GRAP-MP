@@ -79,7 +79,7 @@ void Gaming::InitiateObjects(){
 void Gaming::Update(Timer* timer){
 
     thirdPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 120, playerCarPointer->GetPosition().z + 90});
-    firstPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 30, playerCarPointer->GetPosition().z});
+    firstPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 30, playerCarPointer->GetPosition().z - 10});
 
     // After rendering skybox, enable depth writing again for cars
     glDepthMask(GL_TRUE);  // Enable depth mask for subsequent rendering
@@ -94,8 +94,8 @@ void Gaming::Update(Timer* timer){
 
     // Only make the special lighting stuff at night to save computation
     if (!timeIsDay){
-        playerLightLeftPointer->PositionFromCar(playerCarPointer, glm::vec3(-9.f, 15, 58.f));
-        playerLightRightPointer->PositionFromCar(playerCarPointer, glm::vec3(9.f, 15, 58.f));
+        playerLightLeftPointer->PositionFromCar(playerCarPointer, glm::vec3(-15.f, 18, 65.f));
+        playerLightRightPointer->PositionFromCar(playerCarPointer, glm::vec3(15.f, 18, 65.f));
         fastCarLightLeftPointer->PositionFromCar(fastCarPointer, glm::vec3(-5.f, 10, 45.f));
         fastCarLightRightPointer->PositionFromCar(fastCarPointer, glm::vec3(5.f, 10, 45.f));
         slowCarLightLeftPointer->PositionFromCar(slowCarPointer, glm::vec3(-6.f, 5, 25.f));
@@ -203,6 +203,7 @@ void Gaming::SetToDay(bool value){
         slowCarLightRightPointer->Render(getShaderProg(), getActiveCamera(), 6);
         }
 
+        directionalLightPointer->SetRotation(glm::vec3(0, 90, 45));
         directionalLightPointer->SetColor(glm::vec3(.8f, .55f, .2f));
     }
     else{
@@ -215,6 +216,7 @@ void Gaming::SetToDay(bool value){
         slowCarLightLeftPointer->SetColor(glm::vec3(1, 1, 1));
         slowCarLightRightPointer->SetColor(glm::vec3(1, 1, 1));
 
+        directionalLightPointer->SetRotation(glm::vec3(-30, 90, -45));
         directionalLightPointer->SetColor(glm::vec3(.3f, .3f, .65f));
     }
 }
