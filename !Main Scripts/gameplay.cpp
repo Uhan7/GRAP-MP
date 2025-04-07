@@ -127,9 +127,9 @@ void Gaming::Update(Timer* timer){
 
     // Timer events
     {
-    if (timeIsRunning && timer->getTime() >= 5) this->playerCarPointer->SetSpeed(2.75f);
-    if (timeIsRunning && timer->getTime() >= 5) fastCarPointer->MoveForward(3.5); // 3.5
-    if (timeIsRunning && timer->getTime() >= 5) slowCarPointer->MoveForward(1.2); // 1.2
+    if (timer->getTime() >= 5) this->playerCarPointer->SetSpeed(2.75f);
+    if (timeIsRunning && timer->getTime() >= 5 && !Fast_Cross) fastCarPointer->MoveForward(3.5); // 3.5
+    if (timeIsRunning && timer->getTime() >= 5 && !Slow_Cross) slowCarPointer->MoveForward(1.2); // 1.2
 
     startingSpotLightPointer->Update();
 
