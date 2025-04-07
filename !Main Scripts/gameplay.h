@@ -46,6 +46,8 @@ class Gaming{
         Object* fastCarPointer = nullptr;
         Object* slowCarPointer = nullptr;
 
+        Object* grassPlanePointer = nullptr;
+
         Light* directionalLightPointer = nullptr;
 
         Light* playerLightLeftPointer = nullptr;

@@ -15,24 +15,32 @@ Gaming::Gaming(Timer* timer){
 
     /// Setup Object Variables
 
+    // Player Car
     this->playerCarPointer = new Object("Models and Textures/Car OBJs/ice_cream_van.obj", "Models and Textures/Car Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
     this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
     this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
+    // Fast F1 Car
     this->fastCarPointer = new Object("Models and Textures/Car OBJs/f1.obj", "Models and Textures/Car Textures/f1_specular.png", 1, "RGB", .3f);
     this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
     this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
+    // Slow Bumper Car
     this->slowCarPointer = new Object("Models and Textures/Car OBJs/bumper_car.obj", "Models and Textures/Car Textures/bumper_car_texture.png", 2, "RGB", .25f);
     this->slowCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->slowCarPointer->SetPosition(glm::vec3(-150, 0, 0));
     this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
+    // Grass Plane
+    this->grassPlanePointer = new Object ("Models and Textures/grass.obj", "Models and Textures/grass_texture.jpg", 3, "RGB", 10.f);
+    grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
+    grassPlanePointer->SetPosition(glm::vec3(0, -85, 0));
+    
     this->shaderProgram = CreateShaderProgram("Shaders/sample.vert", "Shaders/sample.frag");
     this->skyboxShaderProgram = CreateShaderProgram("Shaders/skybox.vert", "Shaders/skybox.frag");
-
+    
    // Set up Lights
     this->directionalLightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(.8f, .55f, .2f), 0.6f, glm::vec3(1, 1, 1), 1.f, 2.f);
     this->directionalLightPointer->SetDirectional(true);
@@ -83,11 +91,6 @@ Light* Gaming::GetSlowLightRightPointer(){return slowCarLightRightPointer;}
 unsigned int Gaming::getShaderProg(){return shaderProgram;}
 unsigned int Gaming::getSkyboxProg(){return skyboxShaderProgram;}
 
-
-void Gaming::InitiateObjects(){
-
-}
-
 void Gaming::Update(Timer* timer){
 
     thirdPersonCameraPointer->SetPosition({playerCarPointer->GetPosition().x, playerCarPointer->GetPosition().y + 120, playerCarPointer->GetPosition().z + 90});
@@ -100,6 +103,7 @@ void Gaming::Update(Timer* timer){
     playerCarPointer->Update(shaderProgram, "transform0", 0);
     fastCarPointer->Update(shaderProgram, "transform1", 1);
     slowCarPointer->Update(shaderProgram, "transform2", 2);
+    grassPlanePointer->Update(shaderProgram, "transform3", 3);
 
     if (timeIsRunning) fastCarPointer->MoveForward(3.5); // 3.5
     if (timeIsRunning) slowCarPointer->MoveForward(1.2); // 1.2
@@ -131,6 +135,7 @@ void Gaming::Render(){
     if (activeCameraPointer == thirdPersonCameraPointer) playerCarPointer->Render(shaderProgram, 0, 0);
     fastCarPointer->Render(shaderProgram, 1, 1);
     slowCarPointer->Render(shaderProgram, 2, 2);
+    grassPlanePointer->Render(shaderProgram, 3, 3);
 
     directionalLightPointer->Render(getShaderProg(), getActiveCamera(), 0);
 
