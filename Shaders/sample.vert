@@ -7,6 +7,7 @@ layout (location = 2) in vec2 aTex;
 uniform mat4 transform0;
 uniform mat4 transform1;
 uniform mat4 transform2;
+uniform mat4 transform3;
 
 uniform int transformNumber;
 
@@ -23,6 +24,7 @@ void main() {
         case 0: finalTransform = transform0; break;
         case 1: finalTransform = transform1; break;
         case 2: finalTransform = transform2; break;
+        case 3: finalTransform = transform3; break;
     }
 
     gl_Position = projection * view * finalTransform * vec4(aPos, 1.0);

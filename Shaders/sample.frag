@@ -45,8 +45,8 @@ void main(){
         case 0:
         case 1:
         case 2:
-        case 3:  normal = normalize(normCoord); break;
-        case 4:
+        case 3:  
+        case 4: normal = normalize(normCoord); break;
         case 5:  normal = texture(norm_tex, texCoord).rgb; normal = normalize(normal * 2.0 - 1.0);
     }
     vec3 ambientCol = ambientColor * ambientStr;

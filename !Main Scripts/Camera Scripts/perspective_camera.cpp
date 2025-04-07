@@ -26,7 +26,7 @@ void PerspectiveCamera::Update(unsigned int shaderProgram, int screenWidth, int 
     );
 
     viewMatrix = glm::lookAt(cameraPosition, Center, WorldUp);
-    projectionMatrix = glm::perspective(glm::radians(90.f), static_cast<float>(screenWidth) / static_cast<float>(screenHeight), 0.1f, 1000.f);
+    projectionMatrix = glm::perspective(glm::radians(90.f), static_cast<float>(screenWidth) / static_cast<float>(screenHeight), 0.1f, 2000.f);
 
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
     unsigned int uniformProjectionLocation = glGetUniformLocation(shaderProgram, "projection");
