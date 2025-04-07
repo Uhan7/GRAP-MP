@@ -90,8 +90,8 @@ void Gaming::Update(Timer* timer){
     fastCarPointer->Update(shaderProgram, "transform1", 1);
     slowCarPointer->Update(shaderProgram, "transform2", 2);
 
-    fastCarPointer->MoveForward(0); // 3.5
-    slowCarPointer->MoveForward(0); // 1.2
+    if (timeIsRunning) fastCarPointer->MoveForward(3.5); // 3.5
+    if (timeIsRunning) slowCarPointer->MoveForward(1.2); // 1.2
 
     // Only make the special lighting stuff at night to save computation
     if (!timeIsDay){
@@ -177,6 +177,12 @@ bool Gaming::stillRacing(){
         return true;
    }
    return false;
+}
+
+void Gaming::ToggleTime(){
+    // Hi johann can you stop the timer here as well if false
+    timeIsRunning = !timeIsRunning;
+    std::cout << "time stopped" << std::endl;
 }
 
 void Gaming::setThirdPerson(bool val){

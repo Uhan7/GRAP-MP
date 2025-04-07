@@ -66,11 +66,9 @@ void KeyHeldProcesses(Gaming* program){
         program->SetToDay(false);
         E_CanPress = false;
     }
-    if (SPACE_Held){
-        // Stop enemy karts
-    }
-    else{
-        // Continue enemy karts
+    if (SPACE_Pressed && SPACE_CanPress){
+        program->ToggleTime();
+        SPACE_CanPress = false;
     }
     // if (UP_Held) fastCarPointer->MoveForward(3);
     // if (DOWN_Held) fastCarPointer->MoveForward(-3);

@@ -60,6 +60,7 @@ class Gaming{
         unsigned int shaderProgram;
         unsigned int skyboxShaderProgram;
 
+        bool timeIsRunning = false;
         bool timeIsDay = true;
         bool thirdPerson;
 
@@ -97,6 +98,8 @@ class Gaming{
 
         void setThirdPerson(bool val);
         bool getThirdPerson();
+
+        void ToggleTime();
 
         void runRace(Timer* timer);
         void endRace(Timer* timer);
