@@ -103,9 +103,9 @@ void MouseProcesses(GLFWwindow* window, bool ortographic_view, Camera* Camera){
                 Camera->Rotate('G');
             }
             
-            if (Camera->GetMouse_YPos() > Curr_Pos_y){
+            if (dy > 0){
                 Camera->Rotate('H');
-            } else if(Camera->GetMouse_YPos() < Curr_Pos_y){
+            } else if(dy < 0){
                 Camera->Rotate('Y');
             }
 
