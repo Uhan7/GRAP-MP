@@ -20,6 +20,8 @@ private:
     float specStr;
     float specPhong;
 
+    bool isDirectional = false;
+
     glm::vec3 lightTranslationVector;
     glm::mat4 lightTransformationMatrix;
 
@@ -35,8 +37,9 @@ public:
     Light(glm::vec3 pLightPos, glm::vec3 pLightColor, float pAmbientStr, glm::vec3 pAmbientColor, float pSpecStr, float pSpecPhong);
 
     void Translate(char inputDirection, float translateSpeed);
-    void MoveForward(float moveSpeed);
     void MoveSide(float moveSpeed);
+    void MoveUp(float moveSpeed);
+    void MoveForward(float moveSpeed);
 
     void Update();
     void Render(unsigned int shaderProgram, Camera* activeCameraPointer, int lightIndex);
@@ -46,5 +49,8 @@ public:
     void SetPosition(glm::vec3 newPosition);
     void SetRotation(glm::vec3 newRotationEulerAngles);
 
-    void PositionFromCar(Object* carPointer, float forwardOffset, float sideOffset);
+    void PositionFromCar(Object* carPointer, glm::vec3 offset);
+
+    void SetDirectional(bool value);
+    bool GetDirectional();
 };

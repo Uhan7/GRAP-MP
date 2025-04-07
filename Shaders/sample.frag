@@ -18,11 +18,12 @@ uniform int textureNumber;
 
 // Lights
 
-#define LIGHTS 6
+#define LIGHTS 7
 
 uniform vec3 lightPos[LIGHTS];
 uniform vec3 lightColor[LIGHTS];
 uniform vec3 lightDirection[LIGHTS];
+uniform bool isDirectional[LIGHTS];
 
 uniform float ambientStr;
 uniform vec3 ambientColor;
@@ -52,13 +53,21 @@ void main(){
     vec3 finalSpecular = vec3(0.0);
 
     for (int i = 0; i < LIGHTS; i++){
-        float distanceToObj = length(lightPos[i] - fragPos);
-        float constant = 0.85;
-        float linear = 0.0025;
-        float quadratic = 0.0015;
-        float attenuation = 1.0 / (constant + linear * distanceToObj + quadratic * distanceToObj * distanceToObj);
-
         vec3 lightDir = normalize(lightPos[i] - fragPos);
+        float attenuation = 1.0f;
+
+        if (isDirectional[i]){
+            lightDir = normalize(-lightDirection[i]);
+        }
+        else{
+            float constant = 0.85;
+            float linear = 0.0025;
+            float quadratic = 0.0015;
+            lightDir = normalize(lightPos[i] - fragPos);
+            float distance = length(lightPos[i] - fragPos);
+            attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
+        }
+
         float diff = max(dot(normal, lightDir), 0.0);
         finalDiffuse += diff * lightColor[i] * attenuation;
 

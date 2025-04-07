@@ -24,7 +24,7 @@ private:
 
     float objectTranslateSpeed = 0.3f;
     float objectScaleSpeed = 1.1f;
-    float objectRotateSpeed = glm::radians(1.75f);
+    float objectRotateSpeed = glm::radians(1.3f);
 
     glm::mat4 ObjectTransformationMatrix = glm::mat4(1.0f);
 

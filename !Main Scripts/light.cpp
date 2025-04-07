@@ -15,6 +15,10 @@ void Light::MoveForward(float moveSpeed){
     lightTranslationVector += forward * moveSpeed;
 }
 
+void Light::MoveUp(float moveSpeed){
+    lightTranslationVector += glm::vec3(0.0f, moveSpeed, 0.0f);
+}
+
 void Light::MoveSide(float moveSpeed){
     glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
     lightTranslationVector += right * moveSpeed;
@@ -38,34 +42,42 @@ void Light::Update(){
     lightTransformationMatrix *= glm::mat4_cast(lightRotationQuaternion);
 
     lightPos = glm::vec3(lightTransformationMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    forward = glm::mat3(lightTransformationMatrix) * glm::vec3(0.0f, 0.0f, -1.0f);
 }
 
 void Light::Render(unsigned int shaderProgram, Camera* activeCameraPointer, int lightIndex){
-    // This is so epic
     std::string lightPosName = "lightPos[" + std::to_string(lightIndex) + "]";
-    std::string lightColorName = "lightColor[" + std::to_string(lightIndex) + "]";
-    std::string lightDirectionName = "lightDirection[" + std::to_string(lightIndex) + "]";
-
     GLuint uniformLightPosAddress = glGetUniformLocation(shaderProgram, lightPosName.c_str());
     glUniform3fv(uniformLightPosAddress, 1, glm::value_ptr(lightPos));
 
+    std::string lightColorName = "lightColor[" + std::to_string(lightIndex) + "]";
     GLuint uniformLightColorAddress = glGetUniformLocation(shaderProgram, lightColorName.c_str());
     glUniform3fv(uniformLightColorAddress, 1, glm::value_ptr(lightColor));
 
+    std::string lightDirectionName = "lightDirection[" + std::to_string(lightIndex) + "]";
     GLuint uniformLightDirectionAddress = glGetUniformLocation(shaderProgram, lightDirectionName.c_str());
     glUniform3fv(uniformLightDirectionAddress, 1, glm::value_ptr(forward));
-    
+
+    std::string isDirectionalName = "isDirectional[" + std::to_string(lightIndex) + "]";
+    GLuint uniformIsDirectionalAddress = glGetUniformLocation(shaderProgram, isDirectionalName.c_str());
+    glUniform1i(uniformIsDirectionalAddress, isDirectional);
+
     GLuint uniformAmbientStrengthAddress = glGetUniformLocation(shaderProgram, "ambientStr");
-    glUniform1f(uniformAmbientStrengthAddress, (ambientStr));
+    glUniform1f(uniformAmbientStrengthAddress, ambientStr);
+
     GLuint uniformAmbientColorAddress = glGetUniformLocation(shaderProgram, "ambientColor");
     glUniform3fv(uniformAmbientColorAddress, 1, glm::value_ptr(ambientColor));
-    GLuint uniformcameraPositionitionAddress = glGetUniformLocation(shaderProgram, "cameraPosition");
-    glUniform3fv(uniformcameraPositionitionAddress, 1, glm::value_ptr(activeCameraPointer->GetCameraPosition()));
+
+    GLuint uniformCameraPosAddress = glGetUniformLocation(shaderProgram, "cameraPos");
+    glUniform3fv(uniformCameraPosAddress, 1, glm::value_ptr(activeCameraPointer->GetCameraPosition()));
+
     GLuint uniformSpecularStrengthAddress = glGetUniformLocation(shaderProgram, "specStr");
     glUniform1f(uniformSpecularStrengthAddress, specStr);
+
     GLuint uniformSpecularPhongAddress = glGetUniformLocation(shaderProgram, "specPhong");
     glUniform1f(uniformSpecularPhongAddress, specPhong);
 }
+
 
 void Light::SetColor(glm::vec3 newColor){
     lightColor = newColor;
@@ -81,12 +93,20 @@ void Light::SetPosition(glm::vec3 newPosition){
 
 void Light::SetRotation(glm::vec3 newRotationEulerAngles){
     lightRotationQuaternion = glm::quat(glm::radians(newRotationEulerAngles));
-    forward = lightRotationQuaternion * glm::vec3(0, 0, -1);
 }
 
-void Light::PositionFromCar(Object* carPointer, float forwardOffset, float sideOffset){
+void Light::PositionFromCar(Object* carPointer, glm::vec3 offset){
     SetPosition(carPointer->GetPosition());
     SetRotation(carPointer->GetRotation());
-    MoveForward(forwardOffset);
-    MoveSide(sideOffset);
+    SetForward(carPointer->GetForward());
+    MoveSide(offset.x);
+    MoveUp(offset.y);
+    MoveForward(offset.z);
+}
+
+void Light::SetDirectional(bool value){
+    isDirectional = value;
+}
+bool Light::GetDirectional(){
+    return isDirectional;
 }
