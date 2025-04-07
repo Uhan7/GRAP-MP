@@ -46,8 +46,8 @@ void Camera::Rotate(char inputDirection){
         case 'D': pitch = glm::clamp(pitch - cameraOrientationSpeed, -89.9f, 89.9f); break;
         case 'U': pitch = glm::clamp(pitch + cameraOrientationSpeed, -89.9f, 89.9f); break;
 
-        case 'Y': pitch = glm::clamp(pitch * 0.01f, -89.9f, 89.9f); break;
-        case 'H': pitch = glm::clamp(pitch * -0.01f, -89.9f, 89.9f); break;
+        case 'Y': pitch = glm::clamp(pitch * 1.01f, -89.9f, 89.9f); break;
+        case 'H': pitch = glm::clamp(pitch * -1.01f, -89.9f, 89.9f); break;
         case 'G': yaw -= yaw * 0.10f; break;
         case 'J': yaw += yaw * 0.01f; break;
 

@@ -15,12 +15,16 @@ class Timer{
         steady_clock::time_point start;
         steady_clock::time_point ending;
 
-        bool active;
+        bool player_active;
+        bool fast_active;
+        bool slow_active;
 
     public:
         Timer();
-
         steady_clock::time_point getStart();
         void Start();
+        
+        bool getActive(int index);
+        void toggleActive(int index);
         void Stop();
 };
