@@ -39,15 +39,15 @@ Gaming::Gaming(Timer* timer){
     // Grass Plane
     this->grassPlanePointer = new Object ("Models and Textures/grass.obj", "Models and Textures/grass_texture.jpg", 3, "RGB", 10.f);
     grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
-    grassPlanePointer->SetPosition(glm::vec3(0, -85, 0));
+    grassPlanePointer->SetPosition(glm::vec3(0, -100, 0));
 
     this->landmark1Pointer = new Object ("Models and Textures/hat.obj", "Models and Textures/hat_tex.png", 4, "RGB", 30.f);
     landmark1Pointer->SetRotation(glm::vec3(0, 0, 0));
-    landmark1Pointer->SetPosition(glm::vec3(-300, -30, -1000));
+    landmark1Pointer->SetPosition(glm::vec3(-300, -90, -1000));
 
     this->landmark2Pointer = new Object ("Models and Textures/hat.obj", "Models and Textures/hat_tex.png", 5, "RGB", 30.f);
     landmark2Pointer->SetRotation(glm::vec3(0, 0, 0));
-    landmark2Pointer->SetPosition(glm::vec3(300, -30, -1000));
+    landmark2Pointer->SetPosition(glm::vec3(300, -90, -1000));
     
     this->shaderProgram = CreateShaderProgram("Shaders/sample.vert", "Shaders/sample.frag");
     this->skyboxShaderProgram = CreateShaderProgram("Shaders/skybox.vert", "Shaders/skybox.frag");
@@ -210,7 +210,7 @@ void Gaming::runRace(Timer* timer){
     if (Player_Cross && Fast_Cross && Slow_Cross && !All_Cross){
         steady_clock::time_point time = steady_clock::now();
         auto duration = duration_cast<seconds>(time - timer->getStart());
-        cout << "\n\n-------\nFINISH!\n-------\n\nALL CARS crossed the finish line at " << duration.count()-3 << " seconds!" << endl;
+        cout << "\n\n-------\nFINISH!\n-------\n\nALL CARS crossed the finish line at " << duration.count()-5 << " seconds!" << endl;
         All_Cross = true;
     }
 
