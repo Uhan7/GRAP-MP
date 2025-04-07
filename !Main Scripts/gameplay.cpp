@@ -15,17 +15,17 @@ Gaming::Gaming(Timer* timer){
 
     /// Setup Object Variables
 
-    this->playerCarPointer = new Object("Models and Textures/ice_cream_van.obj", "Models and Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
+    this->playerCarPointer = new Object("Models and Textures/Car OBJs/ice_cream_van.obj", "Models and Textures/Car Textures/ice_cream_van_texture.png", 0, "RGBA", 0.15f);
     this->playerCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->playerCarPointer->SetPosition(glm::vec3(0, 0, 0));
     this->playerCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-    this->fastCarPointer = new Object("Models and Textures/f1.obj", "Models and Textures/f1_specular.png", 1, "RGB", .3f);
+    this->fastCarPointer = new Object("Models and Textures/Car OBJs/f1.obj", "Models and Textures/Car Textures/f1_specular.png", 1, "RGB", .3f);
     this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
     this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
-    this->slowCarPointer = new Object("Models and Textures/bumper_car.obj", "Models and Textures/bumper_car_texture.png", 2, "RGB", .25f);
+    this->slowCarPointer = new Object("Models and Textures/Car OBJs/bumper_car.obj", "Models and Textures/Car Textures/bumper_car_texture.png", 2, "RGB", .25f);
     this->slowCarPointer->SetForward(glm::vec3(1, 0, 0));
     this->slowCarPointer->SetPosition(glm::vec3(-150, 0, 0));
     this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));

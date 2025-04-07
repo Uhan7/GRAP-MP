@@ -73,6 +73,15 @@ private:
         "Models and Textures/Skybox/negz.jpg"
     };
 
+    std::string skyboxFace2[6]{
+        "Models and Textures/Skybox/sky_test_right.png",
+        "Models and Textures/Skybox/sky_test_left.png",
+        "Models and Textures/Skybox/sky_test_up.png",
+        "Models and Textures/Skybox/sky_test_down.png",
+        "Models and Textures/Skybox/sky_test_front.png",
+        "Models and Textures/Skybox/sky_test_back.png"
+    };
+
 public:
     Skybox(int skyboxFaceNumber);
     void Render(unsigned int skyboxShaderProgram, Camera* activeCameraPointer);

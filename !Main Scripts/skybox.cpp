@@ -8,11 +8,9 @@ Skybox::Skybox(int skyboxFaceNumber){
 
     switch (skyboxFaceNumber)
     {
-        case 0:
-            for (int i = 0; i < 6; i++) faces[i] = skyboxFace0[i]; break;
-
-        case 1:
-            for (int i = 0; i < 6; i++) faces[i] = skyboxFace1[i]; break;
+        case 0: for (int i = 0; i < 6; i++) faces[i] = skyboxFace0[i]; break;
+        case 1: for (int i = 0; i < 6; i++) faces[i] = skyboxFace1[i]; break;
+        case 2: for (int i = 0; i < 6; i++) faces[i] = skyboxFace2[i]; break;
         
         default:
             cout << "ERROR: Can't find skybox face number " << skyboxFaceNumber << ". Reverting to default skybox 0." << endl;
@@ -105,11 +103,9 @@ void Skybox::Render(unsigned int skyboxShaderProgram, Camera* activeCameraPointe
 void Skybox::ChangeFaces(int skyboxFaceNumber){
     switch (skyboxFaceNumber)
     {
-        case 0:
-            for (int i = 0; i < 6; i++) faces[i] = skyboxFace0[i]; break;
-
-        case 1:
-            for (int i = 0; i < 6; i++) faces[i] = skyboxFace1[i]; break;
+        case 0: for (int i = 0; i < 6; i++) faces[i] = skyboxFace0[i]; break;
+        case 1: for (int i = 0; i < 6; i++) faces[i] = skyboxFace1[i]; break;
+        case 2: for (int i = 0; i < 6; i++) faces[i] = skyboxFace2[i]; break;
         
         default:
             cout << "ERROR: Can't find skybox face number " << skyboxFaceNumber << ". Reverting to default skybox 0." << endl;
