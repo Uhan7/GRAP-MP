@@ -26,9 +26,9 @@ Gaming::Gaming(Timer* timer){
 
     // Fast F1 Car
     this->fastCarPointer = new Object("Models and Textures/Car OBJs/f1.obj", "Models and Textures/Car Textures/f1_specular.png", 1, "RGB", .3f);
-    this->fastCarPointer->SetForward(glm::vec3(1, 0, 0));
+    this->fastCarPointer->SetForward(glm::vec3(-1, 0, 0));
     this->fastCarPointer->SetPosition(glm::vec3(150, 0, 0));
-    this->fastCarPointer->SetRotation(glm::vec3(0, 90, 0));
+    this->fastCarPointer->SetRotation(glm::vec3(0, -90, 0));
 
     // Slow Bumper Car
     this->slowCarPointer = new Object("Models and Textures/Car OBJs/bumper_car.obj", "Models and Textures/Car Textures/bumper_car_texture.png", 2, "RGB", .25f);
@@ -37,9 +37,9 @@ Gaming::Gaming(Timer* timer){
     this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
     // Grass Plane
-    this->grassPlanePointer = new Object ("Models and Textures/floor.obj", "Models and Textures/floor_texture.png", 3, "RGB", 10.f);
-    // grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
-    grassPlanePointer->SetPosition(glm::vec3(0, -100, 0));
+    this->grassPlanePointer = new Object ("Models and Textures/grass.obj", "Models and Textures/grass_texture.jpg", 3, "RGB", 10.f);
+    grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
+    grassPlanePointer->SetPosition(glm::vec3(0, -105, 0));
 
     this->landmark1Pointer = new Object ("Models and Textures/hat.obj", "Models and Textures/hat_tex.png", 4, "RGB", 30.f);
     landmark1Pointer->SetRotation(glm::vec3(0, 0, 0));
@@ -66,8 +66,8 @@ Gaming::Gaming(Timer* timer){
     this->slowCarLightRightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.15f, glm::vec3(1, 1, 1), 1.5f, 5.0f);
 
     this->startingSpotLightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), 0.6f, glm::vec3(1, 1, 1), 1.f, 2.0f);
-    startingSpotLightPointer->SetPosition(glm::vec3(0, 0, -50));
-    startingSpotLightPointer->SetRotation(glm::vec3(0, 0, 180));
+    startingSpotLightPointer->SetPosition(glm::vec3(0, 110, -300));
+    startingSpotLightPointer->SetRotation(glm::vec3(60, 0, 180));
 
     // Set Up Skybox
     this->skyboxPointer = new Skybox(0);
@@ -133,10 +133,10 @@ void Gaming::Update(Timer* timer){
 
     startingSpotLightPointer->Update();
 
-    if (timer->getTime() >= 3) startingSpotLightPointer->SetColor(glm::vec3(10.f, .0f, 0));
-    if (timer->getTime() >= 4) startingSpotLightPointer->SetColor(glm::vec3(7.f, 7.f, 0));
-    if (timer->getTime() >= 5) startingSpotLightPointer->SetColor(glm::vec3(0.0f, 10.f, 0));
-    if (timer->getTime() >= 6) startingSpotLightPointer->SetColor(glm::vec3(0.0f, 0.f, 0));
+    if (timer->getTime() >= 3) startingSpotLightPointer->SetColor(glm::vec3(30.f, .0f, 0));
+    if (timer->getTime() >= 4) startingSpotLightPointer->SetColor(glm::vec3(21.f, 21.f, 0));
+    if (timer->getTime() >= 5) startingSpotLightPointer->SetColor(glm::vec3(0.0f, 30.f, 0));
+    if (timer->getTime() >= 7) startingSpotLightPointer->SetColor(glm::vec3(0.0f, 0.f, 0));
     }
 
     // Only make the special lighting stuff at night to save computation
@@ -250,6 +250,11 @@ void Gaming::SetToDay(bool value){
 
     if (value == true){
         skyboxPointer->ChangeFaces(0);
+
+        this->grassPlanePointer = new Object ("Models and Textures/grass.obj", "Models and Textures/grass_texture.jpg", 3, "RGB", 10.f);
+        grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
+        grassPlanePointer->SetPosition(glm::vec3(0, -105, 0));
+
         playerLightLeftPointer->SetColor(glm::vec3(0, 0, 0));
         playerLightRightPointer->SetColor(glm::vec3(0, 0, 0));
         fastCarLightLeftPointer->SetColor(glm::vec3(0, 0, 0));
@@ -272,6 +277,10 @@ void Gaming::SetToDay(bool value){
     }
     else{
         skyboxPointer->ChangeFaces(1);
+
+        this->grassPlanePointer = new Object ("Models and Textures/floor.obj", "Models and Textures/floor_texture.png", 3, "RGB", 10.f);
+        grassPlanePointer->SetRotation(glm::vec3(0, 0, 0));
+        grassPlanePointer->SetPosition(glm::vec3(0, 0, 0));
 
         playerLightLeftPointer->SetColor(glm::vec3(1, 1, 1));
         playerLightRightPointer->SetColor(glm::vec3(1, 1, 1));
