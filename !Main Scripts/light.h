@@ -45,6 +45,7 @@ public:
     void Render(unsigned int shaderProgram, Camera* activeCameraPointer, int lightIndex);
 
     void SetColor(glm::vec3 newColor);
+    void SetAmbientStr(float newAmbientStr);
     void SetForward(glm::vec3 newForward);
     void SetPosition(glm::vec3 newPosition);
     void SetRotation(glm::vec3 newRotationEulerAngles);

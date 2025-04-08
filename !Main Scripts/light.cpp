@@ -83,6 +83,10 @@ void Light::SetColor(glm::vec3 newColor){
     lightColor = newColor;
 }
 
+void Light::SetAmbientStr(float newAmbientStr){
+    ambientStr = newAmbientStr;
+}
+
 void Light::SetForward(glm::vec3 newForward){
     forward = newForward;
 }

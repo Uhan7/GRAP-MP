@@ -65,12 +65,12 @@ private:
     };
 
     std::string skyboxFace1[6]{
-        "Models and Textures/Skybox/posx.jpg",
-        "Models and Textures/Skybox/negx.jpg",
-        "Models and Textures/Skybox/posy.jpg",
-        "Models and Textures/Skybox/negy.jpg",
-        "Models and Textures/Skybox/posz.jpg",
-        "Models and Textures/Skybox/negz.jpg"
+        "Models and Textures/Skybox/room_posx.jpg",
+        "Models and Textures/Skybox/room_negx.jpg",
+        "Models and Textures/Skybox/room_posy.jpg",
+        "Models and Textures/Skybox/room_negy.jpg",
+        "Models and Textures/Skybox/room_posz.jpg",
+        "Models and Textures/Skybox/room_negz.jpg"
     };
 
     std::string skyboxFace2[6]{

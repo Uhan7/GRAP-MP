@@ -37,8 +37,8 @@ Gaming::Gaming(Timer* timer){
     this->slowCarPointer->SetRotation(glm::vec3(0, 90, 0));
 
     // Grass Plane
-    this->grassPlanePointer = new Object ("Models and Textures/grass.obj", "Models and Textures/grass_texture.jpg", 3, "RGB", 10.f);
-    grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
+    this->grassPlanePointer = new Object ("Models and Textures/floor.obj", "Models and Textures/floor_texture.png", 3, "RGB", 10.f);
+    // grassPlanePointer->SetRotation(glm::vec3(-90, 0, 0));
     grassPlanePointer->SetPosition(glm::vec3(0, -100, 0));
 
     this->landmark1Pointer = new Object ("Models and Textures/hat.obj", "Models and Textures/hat_tex.png", 4, "RGB", 30.f);
@@ -53,9 +53,9 @@ Gaming::Gaming(Timer* timer){
     this->skyboxShaderProgram = CreateShaderProgram("Shaders/skybox.vert", "Shaders/skybox.frag");
     
    // Set up Lights
-    this->directionalLightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(.8f, .55f, .2f), 0.6f, glm::vec3(1, 1, 1), 1.f, 2.f);
+    this->directionalLightPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(.7f, .5f, .2f), 0.6f, glm::vec3(1, 1, 1), 1.f, 3.f);
     this->directionalLightPointer->SetDirectional(true);
-    this->directionalLightPointer->SetRotation(glm::vec3(0, 90, 45));
+    this->directionalLightPointer->SetRotation(glm::vec3(0, 90, 30));
     directionalLightPointer->Update();
 
     this->playerLightLeftPointer = new Light (glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 0.15f, glm::vec3(1, 1, 1), 1.5f, 5.0f);
@@ -266,8 +266,9 @@ void Gaming::SetToDay(bool value){
         slowCarLightRightPointer->Render(getShaderProg(), getActiveCamera(), 6);
         }
 
+        directionalLightPointer->SetAmbientStr(0.6f);
         directionalLightPointer->SetRotation(glm::vec3(0, 90, 45));
-        directionalLightPointer->SetColor(glm::vec3(.8f, .55f, .2f));
+        directionalLightPointer->SetColor(glm::vec3(.7f, .5f, .2f));
     }
     else{
         skyboxPointer->ChangeFaces(1);
@@ -279,8 +280,9 @@ void Gaming::SetToDay(bool value){
         slowCarLightLeftPointer->SetColor(glm::vec3(1, 1, 1));
         slowCarLightRightPointer->SetColor(glm::vec3(1, 1, 1));
 
+        directionalLightPointer->SetAmbientStr(0.3f);
         directionalLightPointer->SetRotation(glm::vec3(-30, 90, -45));
-        directionalLightPointer->SetColor(glm::vec3(.3f, .3f, .65f));
+        directionalLightPointer->SetColor(glm::vec3(.45f, .35f, .20f));
     }
 }
 

@@ -39,8 +39,8 @@
 void KeyHeldProcesses(Gaming* program){
     if (W_Held){ // Move player forward + change lights
         program->getPlayer()->MoveForward();
-        if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(1, 1, 1));
-        if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(1, 1, 1));
+        if (!program->GetTimeIsDay()) program->GetPlayerLightLeftPointer()->SetColor(glm::vec3(.8f, .8f, .8f));
+        if (!program->GetTimeIsDay()) program->GetPlayerLightRightPointer()->SetColor(glm::vec3(.8f, .8f, .8f));
     }
     else if (S_Held){ // Move player backwards + change lights
         program->getPlayer()->MoveBackward();
